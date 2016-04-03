@@ -28,20 +28,20 @@ class BakeArticleFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'bake_user_id' => array('type' => 'integer', 'null' => false),
-		'title' => array('type' => 'string', 'null' => false),
-		'body' => 'text',
-		'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+  public $fields = array(
+    'id' => array('type' => 'integer', 'key' => 'primary'),
+    'bake_user_id' => array('type' => 'integer', 'null' => false),
+    'title' => array('type' => 'string', 'null' => false),
+    'body' => 'text',
+    'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
+    'created' => 'datetime',
+    'updated' => 'datetime'
+  );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+  public $records = array();
 }

@@ -9,10 +9,10 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright	  Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link		  http://cakephp.org CakePHP(tm) Project
- * @package		  Cake.Routing
- * @since		  CakePHP(tm) v 2.2
+ * @copyright    Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link      http://cakephp.org CakePHP(tm) Project
+ * @package      Cake.Routing
+ * @since      CakePHP(tm) v 2.2
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
@@ -32,7 +32,7 @@ abstract class DispatcherFilter implements CakeEventListener {
  *
  * @var integer
  */
-	public $priority = 10;
+  public $priority = 10;
 
 /**
  * Returns the list of events this filter listens to.
@@ -43,12 +43,12 @@ abstract class DispatcherFilter implements CakeEventListener {
  *
  * @return array
  */
-	public function implementedEvents() {
-		return array(
-			'Dispatcher.beforeDispatch' => array('callable' => 'beforeDispatch', 'priority' => $this->priority),
-			'Dispatcher.afterDispatch' => array('callable' => 'afterDispatch', 'priority' => $this->priority),
-		);
-	}
+  public function implementedEvents() {
+    return array(
+      'Dispatcher.beforeDispatch' => array('callable' => 'beforeDispatch', 'priority' => $this->priority),
+      'Dispatcher.afterDispatch' => array('callable' => 'afterDispatch', 'priority' => $this->priority),
+    );
+  }
 
 /**
  * Method called before the controller is instantiated and called to serve a request.
@@ -63,11 +63,11 @@ abstract class DispatcherFilter implements CakeEventListener {
  * Alternatively you can call `$event->stopPropagation()` to achieve the same result.
  *
  * @param CakeEvent $event container object having the `request`, `response` and `additionalParams`
- *	keys in the data property.
+ *  keys in the data property.
  * @return CakeResponse|boolean
  */
-	public function beforeDispatch(CakeEvent $event) {
-	}
+  public function beforeDispatch(CakeEvent $event) {
+  }
 
 /**
  * Method called after the controller served a request and generated a response.
@@ -78,9 +78,9 @@ abstract class DispatcherFilter implements CakeEventListener {
  * Alternatively you can call `$event->stopPropagation()` to achieve the same result.
  *
  * @param CakeEvent $event container object having the `request` and  `response`
- *	keys in the data property.
+ *  keys in the data property.
  * @return mixed boolean to stop the event dispatching or null to continue
  */
-	public function afterDispatch(CakeEvent $event) {
-	}
+  public function afterDispatch(CakeEvent $event) {
+  }
 }

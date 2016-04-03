@@ -28,7 +28,7 @@ abstract class AbstractTransport {
  *
  * @var array
  */
-	protected $_config = array();
+  protected $_config = array();
 
 /**
  * Send mail
@@ -36,7 +36,7 @@ abstract class AbstractTransport {
  * @param CakeEmail $email
  * @return array
  */
-	abstract public function send(CakeEmail $email);
+  abstract public function send(CakeEmail $email);
 
 /**
  * Set the config
@@ -44,12 +44,12 @@ abstract class AbstractTransport {
  * @param array $config
  * @return array Returns configs
  */
-	public function config($config = null) {
-		if (is_array($config)) {
-			$this->_config = $config + $this->_config;
-		}
-		return $this->_config;
-	}
+  public function config($config = null) {
+    if (is_array($config)) {
+      $this->_config = $config + $this->_config;
+    }
+    return $this->_config;
+  }
 
 /**
  * Help to convert headers in string
@@ -58,18 +58,18 @@ abstract class AbstractTransport {
  * @param string $eol
  * @return string
  */
-	protected function _headersToString($headers, $eol = "\r\n") {
-		$out = '';
-		foreach ($headers as $key => $value) {
-			if ($value === false || $value === null || $value === '') {
-				continue;
-			}
-			$out .= $key . ': ' . $value . $eol;
-		}
-		if (!empty($out)) {
-			$out = substr($out, 0, -1 * strlen($eol));
-		}
-		return $out;
-	}
+  protected function _headersToString($headers, $eol = "\r\n") {
+    $out = '';
+    foreach ($headers as $key => $value) {
+      if ($value === false || $value === null || $value === '') {
+        continue;
+      }
+      $out .= $key . ': ' . $value . $eol;
+    }
+    if (!empty($out)) {
+      $out = substr($out, 0, -1 * strlen($eol));
+    }
+    return $out;
+  }
 
 }

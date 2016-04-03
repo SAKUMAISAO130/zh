@@ -29,7 +29,7 @@ interface ConfigReaderInterface {
  * @param string $key
  * @return array An array of data to merge into the runtime configuration
  */
-	public function read($key);
+  public function read($key);
 
 /**
  * Dumps the configure data into source.
@@ -38,6 +38,6 @@ interface ConfigReaderInterface {
  * @param array $data The data to dump.
  * @return boolean True on success or false on failure.
  */
-	public function dump($key, $data);
+  public function dump($key, $data);
 
 }

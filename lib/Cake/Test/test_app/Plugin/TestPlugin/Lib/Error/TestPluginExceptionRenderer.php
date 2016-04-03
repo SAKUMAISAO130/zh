@@ -33,7 +33,7 @@ class TestPluginExceptionRenderer extends ExceptionRenderer {
  *
  * @return void
  */
-	public function render() {
-		echo 'Rendered by test plugin';
-	}
+  public function render() {
+    echo 'Rendered by test plugin';
+  }
 }

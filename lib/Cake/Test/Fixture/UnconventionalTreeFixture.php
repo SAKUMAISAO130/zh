@@ -31,11 +31,11 @@ class UnconventionalTreeFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id'	=> array('type' => 'integer', 'key' => 'primary'),
-		'name'	=> array('type' => 'string', 'null' => false),
-		'join' => 'integer',
-		'left'	=> array('type' => 'integer', 'null' => false),
-		'right'	=> array('type' => 'integer', 'null' => false),
-	);
+  public $fields = array(
+    'id'  => array('type' => 'integer', 'key' => 'primary'),
+    'name'  => array('type' => 'string', 'null' => false),
+    'join' => 'integer',
+    'left'  => array('type' => 'integer', 'null' => false),
+    'right'  => array('type' => 'integer', 'null' => false),
+  );
 }

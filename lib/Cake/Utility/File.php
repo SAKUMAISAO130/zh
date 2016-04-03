@@ -31,7 +31,7 @@ class File {
  * @var Folder
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$Folder
  */
-	public $Folder = null;
+  public $Folder = null;
 
 /**
  * File name
@@ -39,7 +39,7 @@ class File {
  * @var string
  * http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$name
  */
-	public $name = null;
+  public $name = null;
 
 /**
  * File info
@@ -47,7 +47,7 @@ class File {
  * @var array
  * http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$info
  */
-	public $info = array();
+  public $info = array();
 
 /**
  * Holds the file handler resource if the file is opened
@@ -55,7 +55,7 @@ class File {
  * @var resource
  * http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$handle
  */
-	public $handle = null;
+  public $handle = null;
 
 /**
  * Enable locking for file reading and writing
@@ -63,7 +63,7 @@ class File {
  * @var boolean
  * http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$lock
  */
-	public $lock = null;
+  public $lock = null;
 
 /**
  * Path property
@@ -73,7 +73,7 @@ class File {
  * @var mixed null
  * http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::$path
  */
-	public $path = null;
+  public $path = null;
 
 /**
  * Constructor
@@ -83,21 +83,21 @@ class File {
  * @param integer $mode Mode to apply to the folder holding the file
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File
  */
-	public function __construct($path, $create = false, $mode = 0755) {
-		$this->Folder = new Folder(dirname($path), $create, $mode);
-		if (!is_dir($path)) {
-			$this->name = basename($path);
-		}
-		$this->pwd();
-		$create && !$this->exists() && $this->safe($path) && $this->create();
-	}
+  public function __construct($path, $create = false, $mode = 0755) {
+    $this->Folder = new Folder(dirname($path), $create, $mode);
+    if (!is_dir($path)) {
+      $this->name = basename($path);
+    }
+    $this->pwd();
+    $create && !$this->exists() && $this->safe($path) && $this->create();
+  }
 
 /**
  * Closes the current file if it is opened
  */
-	public function __destruct() {
-		$this->close();
-	}
+  public function __destruct() {
+    $this->close();
+  }
 
 /**
  * Creates the file.
@@ -105,15 +105,15 @@ class File {
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::create
  */
-	public function create() {
-		$dir = $this->Folder->pwd();
-		if (is_dir($dir) && is_writable($dir) && !$this->exists()) {
-			if (touch($this->path)) {
-				return true;
-			}
-		}
-		return false;
-	}
+  public function create() {
+    $dir = $this->Folder->pwd();
+    if (is_dir($dir) && is_writable($dir) && !$this->exists()) {
+      if (touch($this->path)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 /**
  * Opens the current file with a given $mode
@@ -123,22 +123,22 @@ class File {
  * @return boolean True on success, false on failure
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::open
  */
-	public function open($mode = 'r', $force = false) {
-		if (!$force && is_resource($this->handle)) {
-			return true;
-		}
-		if ($this->exists() === false) {
-			if ($this->create() === false) {
-				return false;
-			}
-		}
+  public function open($mode = 'r', $force = false) {
+    if (!$force && is_resource($this->handle)) {
+      return true;
+    }
+    if ($this->exists() === false) {
+      if ($this->create() === false) {
+        return false;
+      }
+    }
 
-		$this->handle = fopen($this->path, $mode);
-		if (is_resource($this->handle)) {
-			return true;
-		}
-		return false;
-	}
+    $this->handle = fopen($this->path, $mode);
+    if (is_resource($this->handle)) {
+      return true;
+    }
+    return false;
+  }
 
 /**
  * Return the contents of this file as a string.
@@ -149,33 +149,33 @@ class File {
  * @return mixed string on success, false on failure
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::read
  */
-	public function read($bytes = false, $mode = 'rb', $force = false) {
-		if ($bytes === false && $this->lock === null) {
-			return file_get_contents($this->path);
-		}
-		if ($this->open($mode, $force) === false) {
-			return false;
-		}
-		if ($this->lock !== null && flock($this->handle, LOCK_SH) === false) {
-			return false;
-		}
-		if (is_int($bytes)) {
-			return fread($this->handle, $bytes);
-		}
+  public function read($bytes = false, $mode = 'rb', $force = false) {
+    if ($bytes === false && $this->lock === null) {
+      return file_get_contents($this->path);
+    }
+    if ($this->open($mode, $force) === false) {
+      return false;
+    }
+    if ($this->lock !== null && flock($this->handle, LOCK_SH) === false) {
+      return false;
+    }
+    if (is_int($bytes)) {
+      return fread($this->handle, $bytes);
+    }
 
-		$data = '';
-		while (!feof($this->handle)) {
-			$data .= fgets($this->handle, 4096);
-		}
+    $data = '';
+    while (!feof($this->handle)) {
+      $data .= fgets($this->handle, 4096);
+    }
 
-		if ($this->lock !== null) {
-			flock($this->handle, LOCK_UN);
-		}
-		if ($bytes === false) {
-			$this->close();
-		}
-		return trim($data);
-	}
+    if ($this->lock !== null) {
+      flock($this->handle, LOCK_UN);
+    }
+    if ($bytes === false) {
+      $this->close();
+    }
+    return trim($data);
+  }
 
 /**
  * Sets or gets the offset for the currently opened file.
@@ -185,16 +185,16 @@ class File {
  * @return mixed True on success, false on failure (set mode), false on failure or integer offset on success (get mode)
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::offset
  */
-	public function offset($offset = false, $seek = SEEK_SET) {
-		if ($offset === false) {
-			if (is_resource($this->handle)) {
-				return ftell($this->handle);
-			}
-		} elseif ($this->open() === true) {
-			return fseek($this->handle, $offset, $seek) === 0;
-		}
-		return false;
-	}
+  public function offset($offset = false, $seek = SEEK_SET) {
+    if ($offset === false) {
+      if (is_resource($this->handle)) {
+        return ftell($this->handle);
+      }
+    } elseif ($this->open() === true) {
+      return fseek($this->handle, $offset, $seek) === 0;
+    }
+    return false;
+  }
 
 /**
  * Prepares a ASCII string for writing. Converts line endings to the
@@ -206,13 +206,13 @@ class File {
  * @return string The with converted line endings.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::prepare
  */
-	public static function prepare($data, $forceWindows = false) {
-		$lineBreak = "\n";
-		if (DIRECTORY_SEPARATOR === '\\' || $forceWindows === true) {
-			$lineBreak = "\r\n";
-		}
-		return strtr($data, array("\r\n" => $lineBreak, "\n" => $lineBreak, "\r" => $lineBreak));
-	}
+  public static function prepare($data, $forceWindows = false) {
+    $lineBreak = "\n";
+    if (DIRECTORY_SEPARATOR === '\\' || $forceWindows === true) {
+      $lineBreak = "\r\n";
+    }
+    return strtr($data, array("\r\n" => $lineBreak, "\n" => $lineBreak, "\r" => $lineBreak));
+  }
 
 /**
  * Write given data to this file.
@@ -223,24 +223,24 @@ class File {
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::write
  */
-	public function write($data, $mode = 'w', $force = false) {
-		$success = false;
-		if ($this->open($mode, $force) === true) {
-			if ($this->lock !== null) {
-				if (flock($this->handle, LOCK_EX) === false) {
-					return false;
-				}
-			}
+  public function write($data, $mode = 'w', $force = false) {
+    $success = false;
+    if ($this->open($mode, $force) === true) {
+      if ($this->lock !== null) {
+        if (flock($this->handle, LOCK_EX) === false) {
+          return false;
+        }
+      }
 
-			if (fwrite($this->handle, $data) !== false) {
-				$success = true;
-			}
-			if ($this->lock !== null) {
-				flock($this->handle, LOCK_UN);
-			}
-		}
-		return $success;
-	}
+      if (fwrite($this->handle, $data) !== false) {
+        $success = true;
+      }
+      if ($this->lock !== null) {
+        flock($this->handle, LOCK_UN);
+      }
+    }
+    return $success;
+  }
 
 /**
  * Append given data string to this file.
@@ -250,9 +250,9 @@ class File {
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::append
  */
-	public function append($data, $force = false) {
-		return $this->write($data, 'a', $force);
-	}
+  public function append($data, $force = false) {
+    return $this->write($data, 'a', $force);
+  }
 
 /**
  * Closes the current file if it is opened.
@@ -260,12 +260,12 @@ class File {
  * @return boolean True if closing was successful or file was already closed, otherwise false
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::close
  */
-	public function close() {
-		if (!is_resource($this->handle)) {
-			return true;
-		}
-		return fclose($this->handle);
-	}
+  public function close() {
+    if (!is_resource($this->handle)) {
+      return true;
+    }
+    return fclose($this->handle);
+  }
 
 /**
  * Deletes the file.
@@ -273,16 +273,16 @@ class File {
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::delete
  */
-	public function delete() {
-		if (is_resource($this->handle)) {
-			fclose($this->handle);
-			$this->handle = null;
-		}
-		if ($this->exists()) {
-			return unlink($this->path);
-		}
-		return false;
-	}
+  public function delete() {
+    if (is_resource($this->handle)) {
+      fclose($this->handle);
+      $this->handle = null;
+    }
+    if ($this->exists()) {
+      return unlink($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns the file info as an array with the following keys:
@@ -297,21 +297,21 @@ class File {
  * @return array File information.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::info
  */
-	public function info() {
-		if (!$this->info) {
-			$this->info = pathinfo($this->path);
-		}
-		if (!isset($this->info['filename'])) {
-			$this->info['filename'] = $this->name();
-		}
-		if (!isset($this->info['filesize'])) {
-			$this->info['filesize'] = $this->size();
-		}
-		if (!isset($this->info['mime'])) {
-			$this->info['mime'] = $this->mime();
-		}
-		return $this->info;
-	}
+  public function info() {
+    if (!$this->info) {
+      $this->info = pathinfo($this->path);
+    }
+    if (!isset($this->info['filename'])) {
+      $this->info['filename'] = $this->name();
+    }
+    if (!isset($this->info['filesize'])) {
+      $this->info['filesize'] = $this->size();
+    }
+    if (!isset($this->info['mime'])) {
+      $this->info['mime'] = $this->mime();
+    }
+    return $this->info;
+  }
 
 /**
  * Returns the file extension.
@@ -319,15 +319,15 @@ class File {
  * @return string The file extension
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::ext
  */
-	public function ext() {
-		if (!$this->info) {
-			$this->info();
-		}
-		if (isset($this->info['extension'])) {
-			return $this->info['extension'];
-		}
-		return false;
-	}
+  public function ext() {
+    if (!$this->info) {
+      $this->info();
+    }
+    if (isset($this->info['extension'])) {
+      return $this->info['extension'];
+    }
+    return false;
+  }
 
 /**
  * Returns the file name without extension.
@@ -335,17 +335,17 @@ class File {
  * @return string The file name without extension.
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::name
  */
-	public function name() {
-		if (!$this->info) {
-			$this->info();
-		}
-		if (isset($this->info['extension'])) {
-			return basename($this->name, '.' . $this->info['extension']);
-		} elseif ($this->name) {
-			return $this->name;
-		}
-		return false;
-	}
+  public function name() {
+    if (!$this->info) {
+      $this->info();
+    }
+    if (isset($this->info['extension'])) {
+      return basename($this->name, '.' . $this->info['extension']);
+    } elseif ($this->name) {
+      return $this->name;
+    }
+    return false;
+  }
 
 /**
  * Makes file name safe for saving
@@ -355,15 +355,15 @@ class File {
  * @return string $ext The extension of the file
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::safe
  */
-	public function safe($name = null, $ext = null) {
-		if (!$name) {
-			$name = $this->name;
-		}
-		if (!$ext) {
-			$ext = $this->ext();
-		}
-		return preg_replace("/(?:[^\w\.-]+)/", "_", basename($name, $ext));
-	}
+  public function safe($name = null, $ext = null) {
+    if (!$name) {
+      $name = $this->name;
+    }
+    if (!$ext) {
+      $ext = $this->ext();
+    }
+    return preg_replace("/(?:[^\w\.-]+)/", "_", basename($name, $ext));
+  }
 
 /**
  * Get md5 Checksum of file with previous check of Filesize
@@ -372,18 +372,18 @@ class File {
  * @return string|false md5 Checksum {@link http://php.net/md5_file See md5_file()}, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::md5
  */
-	public function md5($maxsize = 5) {
-		if ($maxsize === true) {
-			return md5_file($this->path);
-		}
+  public function md5($maxsize = 5) {
+    if ($maxsize === true) {
+      return md5_file($this->path);
+    }
 
-		$size = $this->size();
-		if ($size && $size < ($maxsize * 1024) * 1024) {
-			return md5_file($this->path);
-		}
+    $size = $this->size();
+    if ($size && $size < ($maxsize * 1024) * 1024) {
+      return md5_file($this->path);
+    }
 
-		return false;
-	}
+    return false;
+  }
 
 /**
  * Returns the full path of the file.
@@ -391,12 +391,12 @@ class File {
  * @return string Full path to the file
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::pwd
  */
-	public function pwd() {
-		if ($this->path === null) {
-			$this->path = $this->Folder->slashTerm($this->Folder->pwd()) . $this->name;
-		}
-		return $this->path;
-	}
+  public function pwd() {
+    if ($this->path === null) {
+      $this->path = $this->Folder->slashTerm($this->Folder->pwd()) . $this->name;
+    }
+    return $this->path;
+  }
 
 /**
  * Returns true if the file exists.
@@ -404,10 +404,10 @@ class File {
  * @return boolean True if it exists, false otherwise
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::exists
  */
-	public function exists() {
-		$this->clearStatCache();
-		return (file_exists($this->path) && is_file($this->path));
-	}
+  public function exists() {
+    $this->clearStatCache();
+    return (file_exists($this->path) && is_file($this->path));
+  }
 
 /**
  * Returns the "chmod" (permissions) of the file.
@@ -415,12 +415,12 @@ class File {
  * @return string|false Permissions for the file, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::perms
  */
-	public function perms() {
-		if ($this->exists()) {
-			return substr(sprintf('%o', fileperms($this->path)), -4);
-		}
-		return false;
-	}
+  public function perms() {
+    if ($this->exists()) {
+      return substr(sprintf('%o', fileperms($this->path)), -4);
+    }
+    return false;
+  }
 
 /**
  * Returns the file size
@@ -428,12 +428,12 @@ class File {
  * @return integer|false Size of the file in bytes, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::size
  */
-	public function size() {
-		if ($this->exists()) {
-			return filesize($this->path);
-		}
-		return false;
-	}
+  public function size() {
+    if ($this->exists()) {
+      return filesize($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns true if the file is writable.
@@ -441,9 +441,9 @@ class File {
  * @return boolean True if it's writable, false otherwise
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::writable
  */
-	public function writable() {
-		return is_writable($this->path);
-	}
+  public function writable() {
+    return is_writable($this->path);
+  }
 
 /**
  * Returns true if the File is executable.
@@ -451,9 +451,9 @@ class File {
  * @return boolean True if it's executable, false otherwise
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::executable
  */
-	public function executable() {
-		return is_executable($this->path);
-	}
+  public function executable() {
+    return is_executable($this->path);
+  }
 
 /**
  * Returns true if the file is readable.
@@ -461,9 +461,9 @@ class File {
  * @return boolean True if file is readable, false otherwise
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::readable
  */
-	public function readable() {
-		return is_readable($this->path);
-	}
+  public function readable() {
+    return is_readable($this->path);
+  }
 
 /**
  * Returns the file's owner.
@@ -471,12 +471,12 @@ class File {
  * @return integer|false The file owner, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::owner
  */
-	public function owner() {
-		if ($this->exists()) {
-			return fileowner($this->path);
-		}
-		return false;
-	}
+  public function owner() {
+    if ($this->exists()) {
+      return fileowner($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns the file's group.
@@ -484,12 +484,12 @@ class File {
  * @return integer|false The file group, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::group
  */
-	public function group() {
-		if ($this->exists()) {
-			return filegroup($this->path);
-		}
-		return false;
-	}
+  public function group() {
+    if ($this->exists()) {
+      return filegroup($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns last access time.
@@ -497,12 +497,12 @@ class File {
  * @return integer|false Timestamp of last access time, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::lastAccess
  */
-	public function lastAccess() {
-		if ($this->exists()) {
-			return fileatime($this->path);
-		}
-		return false;
-	}
+  public function lastAccess() {
+    if ($this->exists()) {
+      return fileatime($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns last modified time.
@@ -510,12 +510,12 @@ class File {
  * @return integer|false Timestamp of last modification, or false in case of an error
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::lastChange
  */
-	public function lastChange() {
-		if ($this->exists()) {
-			return filemtime($this->path);
-		}
-		return false;
-	}
+  public function lastChange() {
+    if ($this->exists()) {
+      return filemtime($this->path);
+    }
+    return false;
+  }
 
 /**
  * Returns the current folder.
@@ -523,9 +523,9 @@ class File {
  * @return Folder Current folder
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::Folder
  */
-	public function folder() {
-		return $this->Folder;
-	}
+  public function folder() {
+    return $this->Folder;
+  }
 
 /**
  * Copy the File to $dest
@@ -535,12 +535,12 @@ class File {
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#File::copy
  */
-	public function copy($dest, $overwrite = true) {
-		if (!$this->exists() || is_file($dest) && !$overwrite) {
-			return false;
-		}
-		return copy($this->path, $dest);
-	}
+  public function copy($dest, $overwrite = true) {
+    if (!$this->exists() || is_file($dest) && !$overwrite) {
+      return false;
+    }
+    return copy($this->path, $dest);
+  }
 
 /**
  * Get the mime type of the file. Uses the finfo extension if
@@ -548,24 +548,24 @@ class File {
  *
  * @return false|string The mimetype of the file, or false if reading fails.
  */
-	public function mime() {
-		if (!$this->exists()) {
-			return false;
-		}
-		if (function_exists('finfo_open')) {
-			$finfo = finfo_open(FILEINFO_MIME);
-			$finfo = finfo_file($finfo, $this->pwd());
-			if (!$finfo) {
-				return false;
-			}
-			list($type, $charset) = explode(';', $finfo);
-			return $type;
-		}
-		if (function_exists('mime_content_type')) {
-			return mime_content_type($this->pwd());
-		}
-		return false;
-	}
+  public function mime() {
+    if (!$this->exists()) {
+      return false;
+    }
+    if (function_exists('finfo_open')) {
+      $finfo = finfo_open(FILEINFO_MIME);
+      $finfo = finfo_file($finfo, $this->pwd());
+      if (!$finfo) {
+        return false;
+      }
+      list($type, $charset) = explode(';', $finfo);
+      return $type;
+    }
+    if (function_exists('mime_content_type')) {
+      return mime_content_type($this->pwd());
+    }
+    return false;
+  }
 
 /**
  * Clear PHP's internal stat cache
@@ -576,12 +576,12 @@ class File {
  * @param boolean $all Clear all cache or not
  * @return void
  */
-	public function clearStatCache($all = false) {
-		if ($all === false && version_compare(PHP_VERSION, '5.3.0') >= 0) {
-			return clearstatcache(true, $this->path);
-		}
+  public function clearStatCache($all = false) {
+    if ($all === false && version_compare(PHP_VERSION, '5.3.0') >= 0) {
+      return clearstatcache(true, $this->path);
+    }
 
-		return clearstatcache();
-	}
+    return clearstatcache();
+  }
 
 }

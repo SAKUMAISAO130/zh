@@ -28,20 +28,20 @@ class NumericArticleFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'title' => array('type' => 'string', 'null' => false),
-		'created' => 'datetime',
-		'updated' => 'datetime'
-	);
+  public $fields = array(
+    'id' => array('type' => 'integer', 'key' => 'primary'),
+    'title' => array('type' => 'string', 'null' => false),
+    'created' => 'datetime',
+    'updated' => 'datetime'
+  );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
-		array('title' => '12345abcde', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
-	);
+  public $records = array(
+    array('title' => 'First Article', 'created' => '2007-03-18 10:39:23', 'updated' => '2007-03-18 10:41:31'),
+    array('title' => '12345abcde', 'created' => '2007-03-18 10:41:23', 'updated' => '2007-03-18 10:43:31'),
+  );
 }

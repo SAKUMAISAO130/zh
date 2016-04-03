@@ -11,6 +11,6 @@ class ArticlesController extends AppController {
  *
  * @var mixed
  */
-	public $scaffold;
+  public $scaffold;
 
 }

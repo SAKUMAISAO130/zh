@@ -31,7 +31,7 @@ class WincacheEngine extends CacheEngine {
  *
  * @var array
  */
-	protected $_compiledGroupNames = array();
+  protected $_compiledGroupNames = array();
 
 /**
  * Initialize the Cache Engine
@@ -43,14 +43,14 @@ class WincacheEngine extends CacheEngine {
  * @return boolean True if the engine has been successfully initialized, false if not
  * @see CacheEngine::__defaults
  */
-	public function init($settings = array()) {
-		if (!isset($settings['prefix'])) {
-			$settings['prefix'] = Inflector::slug(APP_DIR) . '_';
-		}
-		$settings += array('engine' => 'Wincache');
-		parent::init($settings);
-		return function_exists('wincache_ucache_info');
-	}
+  public function init($settings = array()) {
+    if (!isset($settings['prefix'])) {
+      $settings['prefix'] = Inflector::slug(APP_DIR) . '_';
+    }
+    $settings += array('engine' => 'Wincache');
+    parent::init($settings);
+    return function_exists('wincache_ucache_info');
+  }
 
 /**
  * Write data for key into cache
@@ -60,16 +60,16 @@ class WincacheEngine extends CacheEngine {
  * @param integer $duration How long to cache the data, in seconds
  * @return boolean True if the data was successfully cached, false on failure
  */
-	public function write($key, $value, $duration) {
-		$expires = time() + $duration;
+  public function write($key, $value, $duration) {
+    $expires = time() + $duration;
 
-		$data = array(
-			$key . '_expires' => $expires,
-			$key => $value
-		);
-		$result = wincache_ucache_set($data, null, $duration);
-		return empty($result);
-	}
+    $data = array(
+      $key . '_expires' => $expires,
+      $key => $value
+    );
+    $result = wincache_ucache_set($data, null, $duration);
+    return empty($result);
+  }
 
 /**
  * Read a key from the cache
@@ -78,14 +78,14 @@ class WincacheEngine extends CacheEngine {
  * @return mixed The cached data, or false if the data doesn't exist, has expired, or if
  *     there was an error fetching it
  */
-	public function read($key) {
-		$time = time();
-		$cachetime = intval(wincache_ucache_get($key . '_expires'));
-		if ($cachetime < $time || ($time + $this->settings['duration']) < $cachetime) {
-			return false;
-		}
-		return wincache_ucache_get($key);
-	}
+  public function read($key) {
+    $time = time();
+    $cachetime = intval(wincache_ucache_get($key . '_expires'));
+    if ($cachetime < $time || ($time + $this->settings['duration']) < $cachetime) {
+      return false;
+    }
+    return wincache_ucache_get($key);
+  }
 
 /**
  * Increments the value of an integer cached key
@@ -94,9 +94,9 @@ class WincacheEngine extends CacheEngine {
  * @param integer $offset How much to increment
  * @return New incremented value, false otherwise
  */
-	public function increment($key, $offset = 1) {
-		return wincache_ucache_inc($key, $offset);
-	}
+  public function increment($key, $offset = 1) {
+    return wincache_ucache_inc($key, $offset);
+  }
 
 /**
  * Decrements the value of an integer cached key
@@ -105,9 +105,9 @@ class WincacheEngine extends CacheEngine {
  * @param integer $offset How much to subtract
  * @return New decremented value, false otherwise
  */
-	public function decrement($key, $offset = 1) {
-		return wincache_ucache_dec($key, $offset);
-	}
+  public function decrement($key, $offset = 1) {
+    return wincache_ucache_dec($key, $offset);
+  }
 
 /**
  * Delete a key from the cache
@@ -115,9 +115,9 @@ class WincacheEngine extends CacheEngine {
  * @param string $key Identifier for the data
  * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
  */
-	public function delete($key) {
-		return wincache_ucache_delete($key);
-	}
+  public function delete($key) {
+    return wincache_ucache_delete($key);
+  }
 
 /**
  * Delete all keys from the cache. This will clear every
@@ -127,20 +127,20 @@ class WincacheEngine extends CacheEngine {
  *   naturally expire in wincache..
  * @return boolean True Returns true.
  */
-	public function clear($check) {
-		if ($check) {
-			return true;
-		}
-		$info = wincache_ucache_info();
-		$cacheKeys = $info['ucache_entries'];
-		unset($info);
-		foreach ($cacheKeys as $key) {
-			if (strpos($key['key_name'], $this->settings['prefix']) === 0) {
-				wincache_ucache_delete($key['key_name']);
-			}
-		}
-		return true;
-	}
+  public function clear($check) {
+    if ($check) {
+      return true;
+    }
+    $info = wincache_ucache_info();
+    $cacheKeys = $info['ucache_entries'];
+    unset($info);
+    foreach ($cacheKeys as $key) {
+      if (strpos($key['key_name'], $this->settings['prefix']) === 0) {
+        wincache_ucache_delete($key['key_name']);
+      }
+    }
+    return true;
+  }
 
 /**
  * Returns the `group value` for each of the configured groups
@@ -149,31 +149,31 @@ class WincacheEngine extends CacheEngine {
  *
  * @return array
  */
-	public function groups() {
-		if (empty($this->_compiledGroupNames)) {
-			foreach ($this->settings['groups'] as $group) {
-				$this->_compiledGroupNames[] = $this->settings['prefix'] . $group;
-			}
-		}
+  public function groups() {
+    if (empty($this->_compiledGroupNames)) {
+      foreach ($this->settings['groups'] as $group) {
+        $this->_compiledGroupNames[] = $this->settings['prefix'] . $group;
+      }
+    }
 
-		$groups = wincache_ucache_get($this->_compiledGroupNames);
-		if (count($groups) !== count($this->settings['groups'])) {
-			foreach ($this->_compiledGroupNames as $group) {
-				if (!isset($groups[$group])) {
-					wincache_ucache_set($group, 1);
-					$groups[$group] = 1;
-				}
-			}
-			ksort($groups);
-		}
+    $groups = wincache_ucache_get($this->_compiledGroupNames);
+    if (count($groups) !== count($this->settings['groups'])) {
+      foreach ($this->_compiledGroupNames as $group) {
+        if (!isset($groups[$group])) {
+          wincache_ucache_set($group, 1);
+          $groups[$group] = 1;
+        }
+      }
+      ksort($groups);
+    }
 
-		$result = array();
-		$groups = array_values($groups);
-		foreach ($this->settings['groups'] as $i => $group) {
-			$result[] = $group . $groups[$i];
-		}
-		return $result;
-	}
+    $result = array();
+    $groups = array_values($groups);
+    foreach ($this->settings['groups'] as $i => $group) {
+      $result[] = $group . $groups[$i];
+    }
+    return $result;
+  }
 
 /**
  * Increments the group value to simulate deletion of all keys under a group
@@ -181,10 +181,10 @@ class WincacheEngine extends CacheEngine {
  *
  * @return boolean success
  */
-	public function clearGroup($group) {
-		$success = null;
-		wincache_ucache_inc($this->settings['prefix'] . $group, 1, $success);
-		return $success;
-	}
+  public function clearGroup($group) {
+    $success = null;
+    wincache_ucache_inc($this->settings['prefix'] . $group, 1, $success);
+    return $success;
+  }
 
 }

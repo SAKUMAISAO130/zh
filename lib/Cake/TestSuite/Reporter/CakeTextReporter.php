@@ -30,20 +30,20 @@ class CakeTextReporter extends CakeBaseReporter {
  *
  * @return void
  */
-	public function paintDocumentStart() {
-		if (!headers_sent()) {
-			header('Content-type: text/plain');
-		}
-	}
+  public function paintDocumentStart() {
+    if (!headers_sent()) {
+      header('Content-type: text/plain');
+    }
+  }
 
 /**
  * Paints a pass
  *
  * @return void
  */
-	public function paintPass() {
-		echo '.';
-	}
+  public function paintPass() {
+    echo '.';
+  }
 
 /**
  * Paints a failing test.
@@ -52,16 +52,16 @@ class CakeTextReporter extends CakeBaseReporter {
  *   the context of the other tests.
  * @return void
  */
-	public function paintFail($message) {
-		$context = $message->getTrace();
-		$realContext = $context[3];
-		$context = $context[2];
+  public function paintFail($message) {
+    $context = $message->getTrace();
+    $realContext = $context[3];
+    $context = $context[2];
 
-		printf(
-			"FAIL on line %s\n%s in\n%s %s()\n\n",
-			$context['line'], $message->toString(), $context['file'], $realContext['function']
-		);
-	}
+    printf(
+      "FAIL on line %s\n%s in\n%s %s()\n\n",
+      $context['line'], $message->toString(), $context['file'], $realContext['function']
+    );
+  }
 
 /**
  * Paints the end of the test with a summary of
@@ -70,37 +70,37 @@ class CakeTextReporter extends CakeBaseReporter {
  * @param PHPUnit_Framework_TestResult $result Result object
  * @return void
  */
-	public function paintFooter($result) {
-		if ($result->failureCount() + $result->errorCount()) {
-			echo "FAILURES!!!\n";
-		} else {
-			echo "\nOK\n";
-		}
+  public function paintFooter($result) {
+    if ($result->failureCount() + $result->errorCount()) {
+      echo "FAILURES!!!\n";
+    } else {
+      echo "\nOK\n";
+    }
 
-		echo "Test cases run: " . $result->count() .
-			"/" . ($result->count() - $result->skippedCount()) .
-			', Passes: ' . $this->numAssertions .
-			', Failures: ' . $result->failureCount() .
-			', Exceptions: ' . $result->errorCount() . "\n";
+    echo "Test cases run: " . $result->count() .
+      "/" . ($result->count() - $result->skippedCount()) .
+      ', Passes: ' . $this->numAssertions .
+      ', Failures: ' . $result->failureCount() .
+      ', Exceptions: ' . $result->errorCount() . "\n";
 
-		echo 'Time: ' . $result->time() . " seconds\n";
-		echo 'Peak memory: ' . number_format(memory_get_peak_usage()) . " bytes\n";
+    echo 'Time: ' . $result->time() . " seconds\n";
+    echo 'Peak memory: ' . number_format(memory_get_peak_usage()) . " bytes\n";
 
-		if (isset($this->params['codeCoverage']) && $this->params['codeCoverage']) {
-			$coverage = $result->getCodeCoverage()->getSummary();
-			echo $this->paintCoverage($coverage);
-		}
-	}
+    if (isset($this->params['codeCoverage']) && $this->params['codeCoverage']) {
+      $coverage = $result->getCodeCoverage()->getSummary();
+      echo $this->paintCoverage($coverage);
+    }
+  }
 
 /**
  * Paints the title only.
  *
  * @return void
  */
-	public function paintHeader() {
-		$this->paintDocumentStart();
-		flush();
-	}
+  public function paintHeader() {
+    $this->paintDocumentStart();
+    flush();
+  }
 
 /**
  * Paints a PHP exception.
@@ -108,13 +108,13 @@ class CakeTextReporter extends CakeBaseReporter {
  * @param Exception $exception Exception to describe.
  * @return void
  */
-	public function paintException($exception) {
-		$message = 'Unexpected exception of type [' . get_class($exception) .
-			'] with message [' . $exception->getMessage() .
-			'] in [' . $exception->getFile() .
-			' line ' . $exception->getLine() . ']';
-		echo $message . "\n\n";
-	}
+  public function paintException($exception) {
+    $message = 'Unexpected exception of type [' . get_class($exception) .
+      '] with message [' . $exception->getMessage() .
+      '] in [' . $exception->getFile() .
+      ' line ' . $exception->getLine() . ']';
+    echo $message . "\n\n";
+  }
 
 /**
  * Prints the message for skipping tests.
@@ -122,9 +122,9 @@ class CakeTextReporter extends CakeBaseReporter {
  * @param string $message Text of skip condition.
  * @return void
  */
-	public function paintSkip($message) {
-		printf("Skip: %s\n", $message->getMessage());
-	}
+  public function paintSkip($message) {
+    printf("Skip: %s\n", $message->getMessage());
+  }
 
 /**
  * Paints formatted text such as dumped variables.
@@ -132,10 +132,10 @@ class CakeTextReporter extends CakeBaseReporter {
  * @param string $message Text to show.
  * @return void
  */
-	public function paintFormattedMessage($message) {
-		echo "$message\n";
-		flush();
-	}
+  public function paintFormattedMessage($message) {
+    echo "$message\n";
+    flush();
+  }
 
 /**
  * Generate a test case list in plain text.
@@ -144,33 +144,33 @@ class CakeTextReporter extends CakeBaseReporter {
  *
  * @return void
  */
-	public function testCaseList() {
-		$testCases = parent::testCaseList();
-		$app = $this->params['app'];
-		$plugin = $this->params['plugin'];
+  public function testCaseList() {
+    $testCases = parent::testCaseList();
+    $app = $this->params['app'];
+    $plugin = $this->params['plugin'];
 
-		$buffer = "Core Test Cases:\n";
-		$urlExtra = '';
-		if ($app) {
-			$buffer = "App Test Cases:\n";
-			$urlExtra = '&app=true';
-		} elseif ($plugin) {
-			$buffer = Inflector::humanize($plugin) . " Test Cases:\n";
-			$urlExtra = '&plugin=' . $plugin;
-		}
+    $buffer = "Core Test Cases:\n";
+    $urlExtra = '';
+    if ($app) {
+      $buffer = "App Test Cases:\n";
+      $urlExtra = '&app=true';
+    } elseif ($plugin) {
+      $buffer = Inflector::humanize($plugin) . " Test Cases:\n";
+      $urlExtra = '&plugin=' . $plugin;
+    }
 
-		if (count($testCases) < 1) {
-			$buffer .= 'EMPTY';
-			echo $buffer;
-		}
+    if (count($testCases) < 1) {
+      $buffer .= 'EMPTY';
+      echo $buffer;
+    }
 
-		foreach ($testCases as $testCase) {
-			$buffer .= $_SERVER['SERVER_NAME'] . $this->baseUrl() . "?case=" . $testCase . "&output=text\n";
-		}
+    foreach ($testCases as $testCase) {
+      $buffer .= $_SERVER['SERVER_NAME'] . $this->baseUrl() . "?case=" . $testCase . "&output=text\n";
+    }
 
-		$buffer .= "\n";
-		echo $buffer;
-	}
+    $buffer .= "\n";
+    echo $buffer;
+  }
 
 /**
  * Generates a Text summary of the coverage data.
@@ -178,9 +178,9 @@ class CakeTextReporter extends CakeBaseReporter {
  * @param array $coverage Array of coverage data.
  * @return void
  */
-	public function paintCoverage($coverage) {
-		$reporter = new TextCoverageReport($coverage, $this);
-		echo $reporter->report();
-	}
+  public function paintCoverage($coverage) {
+    $reporter = new TextCoverageReport($coverage, $this);
+    echo $reporter->report();
+  }
 
 }

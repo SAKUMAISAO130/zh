@@ -30,27 +30,27 @@ class MailTransport extends AbstractTransport {
  * @return array
  * @throws SocketException When mail cannot be sent.
  */
-	public function send(CakeEmail $email) {
-		$eol = PHP_EOL;
-		if (isset($this->_config['eol'])) {
-			$eol = $this->_config['eol'];
-		}
-		$headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc'));
-		$to = $headers['To'];
-		unset($headers['To']);
-		foreach ($headers as $key => $header) {
-			$headers[$key] = str_replace(array("\r", "\n"), '', $header);
-		}
-		$headers = $this->_headersToString($headers, $eol);
-		$subject = str_replace(array("\r", "\n"), '', $email->subject());
-		$to = str_replace(array("\r", "\n"), '', $to);
+  public function send(CakeEmail $email) {
+    $eol = PHP_EOL;
+    if (isset($this->_config['eol'])) {
+      $eol = $this->_config['eol'];
+    }
+    $headers = $email->getHeaders(array('from', 'sender', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc'));
+    $to = $headers['To'];
+    unset($headers['To']);
+    foreach ($headers as $key => $header) {
+      $headers[$key] = str_replace(array("\r", "\n"), '', $header);
+    }
+    $headers = $this->_headersToString($headers, $eol);
+    $subject = str_replace(array("\r", "\n"), '', $email->subject());
+    $to = str_replace(array("\r", "\n"), '', $to);
 
-		$message = implode($eol, $email->message());
+    $message = implode($eol, $email->message());
 
-		$params = isset($this->_config['additionalParameters']) ? $this->_config['additionalParameters'] : null;
-		$this->_mail($to, $subject, $message, $headers, $params);
-		return array('headers' => $headers, 'message' => $message);
-	}
+    $params = isset($this->_config['additionalParameters']) ? $this->_config['additionalParameters'] : null;
+    $this->_mail($to, $subject, $message, $headers, $params);
+    return array('headers' => $headers, 'message' => $message);
+  }
 
 /**
  * Wraps internal function mail() and throws exception instead of errors if anything goes wrong
@@ -63,16 +63,16 @@ class MailTransport extends AbstractTransport {
  * @throws SocketException if mail could not be sent
  * @return void
  */
-	protected function _mail($to, $subject, $message, $headers, $params = null) {
-		if (ini_get('safe_mode')) {
-			//@codingStandardsIgnoreStart
-			if (!@mail($to, $subject, $message, $headers)) {
-				throw new SocketException(__d('cake_dev', 'Could not send email.'));
-			}
-		} elseif (!@mail($to, $subject, $message, $headers, $params)) {
-			//@codingStandardsIgnoreEnd
-			throw new SocketException(__d('cake_dev', 'Could not send email.'));
-		}
-	}
+  protected function _mail($to, $subject, $message, $headers, $params = null) {
+    if (ini_get('safe_mode')) {
+      //@codingStandardsIgnoreStart
+      if (!@mail($to, $subject, $message, $headers)) {
+        throw new SocketException(__d('cake_dev', 'Could not send email.'));
+      }
+    } elseif (!@mail($to, $subject, $message, $headers, $params)) {
+      //@codingStandardsIgnoreEnd
+      throw new SocketException(__d('cake_dev', 'Could not send email.'));
+    }
+  }
 
 }

@@ -32,7 +32,7 @@
  *
  * {{{
  * function doSomething(Model $model, $arg1, $arg2) {
- *		//do something
+ *    //do something
  * }
  * }}}
  *
@@ -49,7 +49,7 @@
  * public $mapMethods = array('/do(\w+)/' => 'doSomething');
  *
  * function doSomething(Model $model, $method, $arg1, $arg2) {
- *		//do something
+ *    //do something
  * }
  * }}}
  *
@@ -72,7 +72,7 @@ class ModelBehavior extends Object {
  * @var array
  * @see Model::$alias
  */
-	public $settings = array();
+  public $settings = array();
 
 /**
  * Allows the mapping of preg-compatible regular expressions to public or
@@ -82,7 +82,7 @@ class ModelBehavior extends Object {
  *
  * @var array
  */
-	public $mapMethods = array();
+  public $mapMethods = array();
 
 /**
  * Setup this behavior with the specified configuration settings.
@@ -91,8 +91,8 @@ class ModelBehavior extends Object {
  * @param array $config Configuration settings for $model
  * @return void
  */
-	public function setup(Model $model, $config = array()) {
-	}
+  public function setup(Model $model, $config = array()) {
+  }
 
 /**
  * Clean up any initialization this behavior has done on a model. Called when a behavior is dynamically
@@ -102,11 +102,11 @@ class ModelBehavior extends Object {
  * @return void
  * @see BehaviorCollection::detach()
  */
-	public function cleanup(Model $model) {
-		if (isset($this->settings[$model->alias])) {
-			unset($this->settings[$model->alias]);
-		}
-	}
+  public function cleanup(Model $model) {
+    if (isset($this->settings[$model->alias])) {
+      unset($this->settings[$model->alias]);
+    }
+  }
 
 /**
  * beforeFind can be used to cancel find operations, or modify the query that will be executed.
@@ -118,9 +118,9 @@ class ModelBehavior extends Object {
  * @return boolean|array False or null will abort the operation. You can return an array to replace the
  *   $query that will be eventually run.
  */
-	public function beforeFind(Model $model, $query) {
-		return true;
-	}
+  public function beforeFind(Model $model, $query) {
+    return true;
+  }
 
 /**
  * After find callback. Can be used to modify any results returned by find.
@@ -130,8 +130,8 @@ class ModelBehavior extends Object {
  * @param boolean $primary Whether this model is being queried directly (vs. being queried as an association)
  * @return mixed An array value will replace the value of $results - any other value will be ignored.
  */
-	public function afterFind(Model $model, $results, $primary = false) {
-	}
+  public function afterFind(Model $model, $results, $primary = false) {
+  }
 
 /**
  * beforeValidate is called before a model is validated, you can use this callback to
@@ -143,9 +143,9 @@ class ModelBehavior extends Object {
  * @return mixed False or null will abort the operation. Any other result will continue.
  * @see Model::save()
  */
-	public function beforeValidate(Model $model, $options = array()) {
-		return true;
-	}
+  public function beforeValidate(Model $model, $options = array()) {
+    return true;
+  }
 
 /**
  * afterValidate is called just after model data was validated, you can use this callback
@@ -154,9 +154,9 @@ class ModelBehavior extends Object {
  * @param Model $model Model using this behavior
  * @return mixed False will stop this event from being passed to other behaviors
  */
-	public function afterValidate(Model $model) {
-		return true;
-	}
+  public function afterValidate(Model $model) {
+    return true;
+  }
 
 /**
  * beforeSave is called before a model is saved. Returning false from a beforeSave callback
@@ -167,9 +167,9 @@ class ModelBehavior extends Object {
  * @return mixed False if the operation should abort. Any other result will continue.
  * @see Model::save()
  */
-	public function beforeSave(Model $model, $options = array()) {
-		return true;
-	}
+  public function beforeSave(Model $model, $options = array()) {
+    return true;
+  }
 
 /**
  * afterSave is called after a model is saved.
@@ -180,9 +180,9 @@ class ModelBehavior extends Object {
  * @return boolean
  * @see Model::save()
  */
-	public function afterSave(Model $model, $created, $options = array()) {
-		return true;
-	}
+  public function afterSave(Model $model, $created, $options = array()) {
+    return true;
+  }
 
 /**
  * Before delete is called before any delete occurs on the attached model, but after the model's
@@ -192,9 +192,9 @@ class ModelBehavior extends Object {
  * @param boolean $cascade If true records that depend on this record will also be deleted
  * @return mixed False if the operation should abort. Any other result will continue.
  */
-	public function beforeDelete(Model $model, $cascade = true) {
-		return true;
-	}
+  public function beforeDelete(Model $model, $cascade = true) {
+    return true;
+  }
 
 /**
  * After delete is called after any delete occurs on the attached model.
@@ -202,8 +202,8 @@ class ModelBehavior extends Object {
  * @param Model $model Model using this behavior
  * @return void
  */
-	public function afterDelete(Model $model) {
-	}
+  public function afterDelete(Model $model) {
+  }
 
 /**
  * DataSource error callback
@@ -212,8 +212,8 @@ class ModelBehavior extends Object {
  * @param string $error Error generated in DataSource
  * @return void
  */
-	public function onError(Model $model, $error) {
-	}
+  public function onError(Model $model, $error) {
+  }
 
 /**
  * If $model's whitelist property is non-empty, $field will be added to it.
@@ -225,16 +225,16 @@ class ModelBehavior extends Object {
  * @param string $field Field to be added to $model's whitelist
  * @return void
  */
-	protected function _addToWhitelist(Model $model, $field) {
-		if (is_array($field)) {
-			foreach ($field as $f) {
-				$this->_addToWhitelist($model, $f);
-			}
-			return;
-		}
-		if (!empty($model->whitelist) && !in_array($field, $model->whitelist)) {
-			$model->whitelist[] = $field;
-		}
-	}
+  protected function _addToWhitelist(Model $model, $field) {
+    if (is_array($field)) {
+      foreach ($field as $f) {
+        $this->_addToWhitelist($model, $f);
+      }
+      return;
+    }
+    if (!empty($model->whitelist) && !in_array($field, $model->whitelist)) {
+      $model->whitelist[] = $field;
+    }
+  }
 
 }

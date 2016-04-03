@@ -34,7 +34,7 @@ class CakeErrorController extends AppController {
  *
  * @var array
  */
-	public $uses = array();
+  public $uses = array();
 
 /**
  * Constructor
@@ -42,21 +42,21 @@ class CakeErrorController extends AppController {
  * @param CakeRequest $request
  * @param CakeResponse $response
  */
-	public function __construct($request = null, $response = null) {
-		parent::__construct($request, $response);
-		$this->constructClasses();
-		if (count(Router::extensions()) &&
-			!$this->Components->attached('RequestHandler')
-		) {
-			$this->RequestHandler = $this->Components->load('RequestHandler');
-		}
-		if ($this->Components->enabled('Auth')) {
-			$this->Components->disable('Auth');
-		}
-		if ($this->Components->enabled('Security')) {
-			$this->Components->disable('Security');
-		}
-		$this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
-	}
+  public function __construct($request = null, $response = null) {
+    parent::__construct($request, $response);
+    $this->constructClasses();
+    if (count(Router::extensions()) &&
+      !$this->Components->attached('RequestHandler')
+    ) {
+      $this->RequestHandler = $this->Components->load('RequestHandler');
+    }
+    if ($this->Components->enabled('Auth')) {
+      $this->Components->disable('Auth');
+    }
+    if ($this->Components->enabled('Security')) {
+      $this->Components->disable('Security');
+    }
+    $this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
+  }
 
 }

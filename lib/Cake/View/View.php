@@ -60,14 +60,14 @@ class View extends Object {
  *
  * @var HelperCollection
  */
-	public $Helpers;
+  public $Helpers;
 
 /**
  * ViewBlock instance.
  *
  * @var ViewBlock
  */
-	public $Blocks;
+  public $Blocks;
 
 /**
  * Name of the plugin.
@@ -75,63 +75,63 @@ class View extends Object {
  * @link http://manual.cakephp.org/chapter/plugins
  * @var string
  */
-	public $plugin = null;
+  public $plugin = null;
 
 /**
  * Name of the controller.
  *
  * @var string Name of controller
  */
-	public $name = null;
+  public $name = null;
 
 /**
  * Current passed params
  *
  * @var mixed
  */
-	public $passedArgs = array();
+  public $passedArgs = array();
 
 /**
  * An array of names of built-in helpers to include.
  *
  * @var mixed A single name as a string or a list of names as an array.
  */
-	public $helpers = array();
+  public $helpers = array();
 
 /**
  * Path to View.
  *
  * @var string Path to View
  */
-	public $viewPath = null;
+  public $viewPath = null;
 
 /**
  * Variables for the view
  *
  * @var array
  */
-	public $viewVars = array();
+  public $viewVars = array();
 
 /**
  * Name of view to use with this View.
  *
  * @var string
  */
-	public $view = null;
+  public $view = null;
 
 /**
  * Name of layout to use with this View.
  *
  * @var string
  */
-	public $layout = 'default';
+  public $layout = 'default';
 
 /**
  * Path to Layout.
  *
  * @var string Path to Layout
  */
-	public $layoutPath = null;
+  public $layoutPath = null;
 
 /**
  * Turns on or off CakePHP's conventional mode of applying layout files. On by default.
@@ -139,14 +139,14 @@ class View extends Object {
  *
  * @var boolean
  */
-	public $autoLayout = true;
+  public $autoLayout = true;
 
 /**
  * File extension. Defaults to CakePHP's template ".ctp".
  *
  * @var string
  */
-	public $ext = '.ctp';
+  public $ext = '.ctp';
 
 /**
  * Sub-directory for this view file. This is often used for extension based routing.
@@ -154,14 +154,14 @@ class View extends Object {
  *
  * @var string
  */
-	public $subDir = null;
+  public $subDir = null;
 
 /**
  * Theme name.
  *
  * @var string
  */
-	public $theme = null;
+  public $theme = null;
 
 /**
  * Used to define methods a controller that will be cached.
@@ -169,28 +169,28 @@ class View extends Object {
  * @see Controller::$cacheAction
  * @var mixed
  */
-	public $cacheAction = false;
+  public $cacheAction = false;
 
 /**
  * Holds current errors for the model validation.
  *
  * @var array
  */
-	public $validationErrors = array();
+  public $validationErrors = array();
 
 /**
  * True when the view has been rendered.
  *
  * @var boolean
  */
-	public $hasRendered = false;
+  public $hasRendered = false;
 
 /**
  * List of generated DOM UUIDs.
  *
  * @var array
  */
-	public $uuids = array();
+  public $uuids = array();
 
 /**
  * An instance of a CakeRequest object that contains information about the current request.
@@ -199,14 +199,14 @@ class View extends Object {
  *
  * @var CakeRequest
  */
-	public $request;
+  public $request;
 
 /**
  * Reference to the Response object
  *
  * @var CakeResponse
  */
-	public $response;
+  public $response;
 
 /**
  * The Cache configuration View will use to store cached elements. Changing this will change
@@ -216,7 +216,7 @@ class View extends Object {
  * @var string
  * @see View::element()
  */
-	public $elementCache = 'default';
+  public $elementCache = 'default';
 
 /**
  * Element cache settings
@@ -225,45 +225,45 @@ class View extends Object {
  * @see View::_elementCache();
  * @see View::_renderElement
  */
-	public $elementCacheSettings = array();
+  public $elementCacheSettings = array();
 
 /**
  * List of variables to collect from the associated controller.
  *
  * @var array
  */
-	protected $_passedVars = array(
-		'viewVars', 'autoLayout', 'ext', 'helpers', 'view', 'layout', 'name', 'theme',
-		'layoutPath', 'viewPath', 'request', 'plugin', 'passedArgs', 'cacheAction'
-	);
+  protected $_passedVars = array(
+    'viewVars', 'autoLayout', 'ext', 'helpers', 'view', 'layout', 'name', 'theme',
+    'layoutPath', 'viewPath', 'request', 'plugin', 'passedArgs', 'cacheAction'
+  );
 
 /**
  * Scripts (and/or other <head /> tags) for the layout.
  *
  * @var array
  */
-	protected $_scripts = array();
+  protected $_scripts = array();
 
 /**
  * Holds an array of paths.
  *
  * @var array
  */
-	protected $_paths = array();
+  protected $_paths = array();
 
 /**
  * The names of views and their parents used with View::extend();
  *
  * @var array
  */
-	protected $_parents = array();
+  protected $_parents = array();
 
 /**
  * The currently rendering view file. Used for resolving parent files.
  *
  * @var string
  */
-	protected $_current = null;
+  protected $_current = null;
 
 /**
  * Currently rendering an element. Used for finding parent fragments
@@ -271,14 +271,14 @@ class View extends Object {
  *
  * @var string
  */
-	protected $_currentType = '';
+  protected $_currentType = '';
 
 /**
  * Content stack, used for nested templates that all use View::extend();
  *
  * @var array
  */
-	protected $_stack = array();
+  protected $_stack = array();
 
 /**
  * Instance of the CakeEventManager this View object is using
@@ -288,59 +288,59 @@ class View extends Object {
  *
  * @var CakeEventManager
  */
-	protected $_eventManager = null;
+  protected $_eventManager = null;
 
 /**
  * Whether the event manager was already configured for this object
  *
  * @var boolean
  */
-	protected $_eventManagerConfigured = false;
+  protected $_eventManagerConfigured = false;
 
 /**
  * Constant for view file type 'view'
  */
-	const TYPE_VIEW = 'view';
+  const TYPE_VIEW = 'view';
 
 /**
  * Constant for view file type 'element'
  */
-	const TYPE_ELEMENT = 'element';
+  const TYPE_ELEMENT = 'element';
 
 /**
  * Constant for view file type 'layout'
  */
-	const TYPE_LAYOUT = 'layout';
+  const TYPE_LAYOUT = 'layout';
 
 /**
  * Constructor
  *
  * @param Controller $controller A controller object to pull View::_passedVars from.
  */
-	public function __construct(Controller $controller = null) {
-		if (is_object($controller)) {
-			$count = count($this->_passedVars);
-			for ($j = 0; $j < $count; $j++) {
-				$var = $this->_passedVars[$j];
-				$this->{$var} = $controller->{$var};
-			}
-			$this->_eventManager = $controller->getEventManager();
-		}
-		if (empty($this->request) && !($this->request = Router::getRequest(true))) {
-			$this->request = new CakeRequest(null, false);
-			$this->request->base = '';
-			$this->request->here = $this->request->webroot = '/';
-		}
-		if (is_object($controller) && isset($controller->response)) {
-			$this->response = $controller->response;
-		} else {
-			$this->response = new CakeResponse();
-		}
-		$this->Helpers = new HelperCollection($this);
-		$this->Blocks = new ViewBlock();
-		$this->loadHelpers();
-		parent::__construct();
-	}
+  public function __construct(Controller $controller = null) {
+    if (is_object($controller)) {
+      $count = count($this->_passedVars);
+      for ($j = 0; $j < $count; $j++) {
+        $var = $this->_passedVars[$j];
+        $this->{$var} = $controller->{$var};
+      }
+      $this->_eventManager = $controller->getEventManager();
+    }
+    if (empty($this->request) && !($this->request = Router::getRequest(true))) {
+      $this->request = new CakeRequest(null, false);
+      $this->request->base = '';
+      $this->request->here = $this->request->webroot = '/';
+    }
+    if (is_object($controller) && isset($controller->response)) {
+      $this->response = $controller->response;
+    } else {
+      $this->response = new CakeResponse();
+    }
+    $this->Helpers = new HelperCollection($this);
+    $this->Blocks = new ViewBlock();
+    $this->loadHelpers();
+    parent::__construct();
+  }
 
 /**
  * Returns the CakeEventManager manager instance that is handling any callbacks.
@@ -349,16 +349,16 @@ class View extends Object {
  *
  * @return CakeEventManager
  */
-	public function getEventManager() {
-		if (empty($this->_eventManager)) {
-			$this->_eventManager = new CakeEventManager();
-		}
-		if (!$this->_eventManagerConfigured) {
-			$this->_eventManager->attach($this->Helpers);
-			$this->_eventManagerConfigured = true;
-		}
-		return $this->_eventManager;
-	}
+  public function getEventManager() {
+    if (empty($this->_eventManager)) {
+      $this->_eventManager = new CakeEventManager();
+    }
+    if (!$this->_eventManagerConfigured) {
+      $this->_eventManager->attach($this->Helpers);
+      $this->_eventManagerConfigured = true;
+    }
+    return $this->_eventManager;
+  }
 
 /**
  * Renders a piece of PHP with provided parameters and returns HTML, XML, or any other string.
@@ -383,36 +383,36 @@ class View extends Object {
  * @deprecated The `$options['plugin']` is deprecated and will be removed in CakePHP 3.0. Use
  *   `Plugin.element_name` instead.
  */
-	public function element($name, $data = array(), $options = array()) {
-		$file = $plugin = null;
+  public function element($name, $data = array(), $options = array()) {
+    $file = $plugin = null;
 
-		if (isset($options['plugin'])) {
-			$name = Inflector::camelize($options['plugin']) . '.' . $name;
-		}
+    if (isset($options['plugin'])) {
+      $name = Inflector::camelize($options['plugin']) . '.' . $name;
+    }
 
-		if (!isset($options['callbacks'])) {
-			$options['callbacks'] = false;
-		}
+    if (!isset($options['callbacks'])) {
+      $options['callbacks'] = false;
+    }
 
-		if (isset($options['cache'])) {
-			$contents = $this->_elementCache($name, $data, $options);
-			if ($contents !== false) {
-				return $contents;
-			}
-		}
+    if (isset($options['cache'])) {
+      $contents = $this->_elementCache($name, $data, $options);
+      if ($contents !== false) {
+        return $contents;
+      }
+    }
 
-		$file = $this->_getElementFilename($name);
-		if ($file) {
-			return $this->_renderElement($file, $data, $options);
-		}
+    $file = $this->_getElementFilename($name);
+    if ($file) {
+      return $this->_renderElement($file, $data, $options);
+    }
 
-		if (empty($options['ignoreMissing'])) {
-			list ($plugin, $name) = pluginSplit($name, true);
-			$name = str_replace('/', DS, $name);
-			$file = $plugin . 'Elements' . DS . $name . $this->ext;
-			trigger_error(__d('cake_dev', 'Element Not Found: %s', $file), E_USER_NOTICE);
-		}
-	}
+    if (empty($options['ignoreMissing'])) {
+      list ($plugin, $name) = pluginSplit($name, true);
+      $name = str_replace('/', DS, $name);
+      $file = $plugin . 'Elements' . DS . $name . $this->ext;
+      trigger_error(__d('cake_dev', 'Element Not Found: %s', $file), E_USER_NOTICE);
+    }
+  }
 
 /**
  * Checks if an element exists
@@ -422,9 +422,9 @@ class View extends Object {
  *   is not found in the plugin, the normal view path cascade will be searched.
  * @return boolean Success
  */
-	public function elementExists($name) {
-		return (bool)$this->_getElementFilename($name);
-	}
+  public function elementExists($name) {
+    return (bool)$this->_getElementFilename($name);
+  }
 
 /**
  * Renders view for given view file and layout.
@@ -448,28 +448,28 @@ class View extends Object {
  * @return string Rendered Element
  * @throws CakeException If there is an error in the view.
  */
-	public function render($view = null, $layout = null) {
-		if ($this->hasRendered) {
-			return true;
-		}
-		$this->Blocks->set('content', '');
+  public function render($view = null, $layout = null) {
+    if ($this->hasRendered) {
+      return true;
+    }
+    $this->Blocks->set('content', '');
 
-		if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
-			$this->_currentType = self::TYPE_VIEW;
-			$this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($viewFileName)));
-			$this->Blocks->set('content', $this->_render($viewFileName));
-			$this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($viewFileName)));
-		}
+    if ($view !== false && $viewFileName = $this->_getViewFileName($view)) {
+      $this->_currentType = self::TYPE_VIEW;
+      $this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($viewFileName)));
+      $this->Blocks->set('content', $this->_render($viewFileName));
+      $this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($viewFileName)));
+    }
 
-		if ($layout === null) {
-			$layout = $this->layout;
-		}
-		if ($layout && $this->autoLayout) {
-			$this->Blocks->set('content', $this->renderLayout('', $layout));
-		}
-		$this->hasRendered = true;
-		return $this->Blocks->get('content');
-	}
+    if ($layout === null) {
+      $layout = $this->layout;
+    }
+    if ($layout && $this->autoLayout) {
+      $this->Blocks->set('content', $this->renderLayout('', $layout));
+    }
+    $this->hasRendered = true;
+    return $this->Blocks->get('content');
+  }
 
 /**
  * Renders a layout. Returns output from _render(). Returns false on error.
@@ -494,37 +494,37 @@ class View extends Object {
  * @return mixed Rendered output, or false on error
  * @throws CakeException if there is an error in the view.
  */
-	public function renderLayout($content, $layout = null) {
-		$layoutFileName = $this->_getLayoutFileName($layout);
-		if (empty($layoutFileName)) {
-			return $this->Blocks->get('content');
-		}
+  public function renderLayout($content, $layout = null) {
+    $layoutFileName = $this->_getLayoutFileName($layout);
+    if (empty($layoutFileName)) {
+      return $this->Blocks->get('content');
+    }
 
-		if (empty($content)) {
-			$content = $this->Blocks->get('content');
-		} else {
-			$this->Blocks->set('content', $content);
-		}
-		$this->getEventManager()->dispatch(new CakeEvent('View.beforeLayout', $this, array($layoutFileName)));
+    if (empty($content)) {
+      $content = $this->Blocks->get('content');
+    } else {
+      $this->Blocks->set('content', $content);
+    }
+    $this->getEventManager()->dispatch(new CakeEvent('View.beforeLayout', $this, array($layoutFileName)));
 
-		$scripts = implode("\n\t", $this->_scripts);
-		$scripts .= $this->Blocks->get('meta') . $this->Blocks->get('css') . $this->Blocks->get('script');
+    $scripts = implode("\n\t", $this->_scripts);
+    $scripts .= $this->Blocks->get('meta') . $this->Blocks->get('css') . $this->Blocks->get('script');
 
-		$this->viewVars = array_merge($this->viewVars, array(
-			'content_for_layout' => $content,
-			'scripts_for_layout' => $scripts,
-		));
+    $this->viewVars = array_merge($this->viewVars, array(
+      'content_for_layout' => $content,
+      'scripts_for_layout' => $scripts,
+    ));
 
-		if (!isset($this->viewVars['title_for_layout'])) {
-			$this->viewVars['title_for_layout'] = Inflector::humanize($this->viewPath);
-		}
+    if (!isset($this->viewVars['title_for_layout'])) {
+      $this->viewVars['title_for_layout'] = Inflector::humanize($this->viewPath);
+    }
 
-		$this->_currentType = self::TYPE_LAYOUT;
-		$this->Blocks->set('content', $this->_render($layoutFileName));
+    $this->_currentType = self::TYPE_LAYOUT;
+    $this->Blocks->set('content', $this->_render($layoutFileName));
 
-		$this->getEventManager()->dispatch(new CakeEvent('View.afterLayout', $this, array($layoutFileName)));
-		return $this->Blocks->get('content');
-	}
+    $this->getEventManager()->dispatch(new CakeEvent('View.afterLayout', $this, array($layoutFileName)));
+    return $this->Blocks->get('content');
+  }
 
 /**
  * Render cached view. Works in concert with CacheHelper and Dispatcher to
@@ -534,37 +534,37 @@ class View extends Object {
  * @param string $timeStart the page render start time
  * @return boolean Success of rendering the cached file.
  */
-	public function renderCache($filename, $timeStart) {
-		$response = $this->response;
-		ob_start();
-		include $filename;
+  public function renderCache($filename, $timeStart) {
+    $response = $this->response;
+    ob_start();
+    include $filename;
 
-		$type = $response->mapType($response->type());
-		if (Configure::read('debug') > 0 && $type === 'html') {
-			echo "<!-- Cached Render Time: " . round(microtime(true) - $timeStart, 4) . "s -->";
-		}
-		$out = ob_get_clean();
+    $type = $response->mapType($response->type());
+    if (Configure::read('debug') > 0 && $type === 'html') {
+      echo "<!-- Cached Render Time: " . round(microtime(true) - $timeStart, 4) . "s -->";
+    }
+    $out = ob_get_clean();
 
-		if (preg_match('/^<!--cachetime:(\\d+)-->/', $out, $match)) {
-			if (time() >= $match['1']) {
-				//@codingStandardsIgnoreStart
-				@unlink($filename);
-				//@codingStandardsIgnoreEnd
-				unset($out);
-				return false;
-			}
-			return substr($out, strlen($match[0]));
-		}
-	}
+    if (preg_match('/^<!--cachetime:(\\d+)-->/', $out, $match)) {
+      if (time() >= $match['1']) {
+        //@codingStandardsIgnoreStart
+        @unlink($filename);
+        //@codingStandardsIgnoreEnd
+        unset($out);
+        return false;
+      }
+      return substr($out, strlen($match[0]));
+    }
+  }
 
 /**
  * Returns a list of variables available in the current View context
  *
  * @return array Array of the set view variable names.
  */
-	public function getVars() {
-		return array_keys($this->viewVars);
-	}
+  public function getVars() {
+    return array_keys($this->viewVars);
+  }
 
 /**
  * Returns the contents of the given View variable(s)
@@ -573,9 +573,9 @@ class View extends Object {
  * @return mixed The content of the named var if its set, otherwise null.
  * @deprecated Will be removed in 3.0. Use View::get() instead.
  */
-	public function getVar($var) {
-		return $this->get($var);
-	}
+  public function getVar($var) {
+    return $this->get($var);
+  }
 
 /**
  * Returns the contents of the given View variable or a block.
@@ -584,12 +584,12 @@ class View extends Object {
  * @param string $var The view var you want the contents of.
  * @return mixed The content of the named var if its set, otherwise null.
  */
-	public function get($var) {
-		if (!isset($this->viewVars[$var])) {
-			return null;
-		}
-		return $this->viewVars[$var];
-	}
+  public function get($var) {
+    if (!isset($this->viewVars[$var])) {
+      return null;
+    }
+    return $this->viewVars[$var];
+  }
 
 /**
  * Get the names of all the existing blocks.
@@ -597,9 +597,9 @@ class View extends Object {
  * @return array An array containing the blocks.
  * @see ViewBlock::keys()
  */
-	public function blocks() {
-		return $this->Blocks->keys();
-	}
+  public function blocks() {
+    return $this->Blocks->keys();
+  }
 
 /**
  * Start capturing output for a 'block'
@@ -608,9 +608,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::start()
  */
-	public function start($name) {
-		$this->Blocks->start($name);
-	}
+  public function start($name) {
+    $this->Blocks->start($name);
+  }
 
 /**
  * Start capturing output for a 'block' if it has no content
@@ -619,9 +619,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::startIfEmpty()
  */
-	public function startIfEmpty($name) {
-		$this->Blocks->startIfEmpty($name);
-	}
+  public function startIfEmpty($name) {
+    $this->Blocks->startIfEmpty($name);
+  }
 
 /**
  * Append to an existing or new block. Appending to a new
@@ -632,9 +632,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::concat()
  */
-	public function append($name, $value = null) {
-		$this->Blocks->concat($name, $value);
-	}
+  public function append($name, $value = null) {
+    $this->Blocks->concat($name, $value);
+  }
 
 /**
  * Prepend to an existing or new block. Prepending to a new
@@ -645,9 +645,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::concat()
  */
-	public function prepend($name, $value = null) {
-		$this->Blocks->concat($name, $value, ViewBlock::PREPEND);
-	}
+  public function prepend($name, $value = null) {
+    $this->Blocks->concat($name, $value, ViewBlock::PREPEND);
+  }
 
 /**
  * Set the content for a block. This will overwrite any
@@ -658,9 +658,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::set()
  */
-	public function assign($name, $value) {
-		$this->Blocks->set($name, $value);
-	}
+  public function assign($name, $value) {
+    $this->Blocks->set($name, $value);
+  }
 
 /**
  * Fetch the content for a block. If a block is
@@ -671,9 +671,9 @@ class View extends Object {
  * @return string $default The block content or $default if the block does not exist.
  * @see ViewBlock::get()
  */
-	public function fetch($name, $default = '') {
-		return $this->Blocks->get($name, $default);
-	}
+  public function fetch($name, $default = '') {
+    return $this->Blocks->get($name, $default);
+  }
 
 /**
  * End a capturing block. The compliment to View::start()
@@ -681,9 +681,9 @@ class View extends Object {
  * @return void
  * @see ViewBlock::end()
  */
-	public function end() {
-		$this->Blocks->end();
-	}
+  public function end() {
+    $this->Blocks->end();
+  }
 
 /**
  * Provides view or element extension/inheritance. Views can extends a
@@ -694,40 +694,40 @@ class View extends Object {
  * @throws LogicException when you extend a view with itself or make extend loops.
  * @throws LogicException when you extend an element which doesn't exist
  */
-	public function extend($name) {
-		if ($name[0] === '/' || $this->_currentType === self::TYPE_VIEW) {
-			$parent = $this->_getViewFileName($name);
-		} else {
-			switch ($this->_currentType) {
-				case self::TYPE_ELEMENT:
-					$parent = $this->_getElementFileName($name);
-					if (!$parent) {
-						list($plugin, $name) = $this->pluginSplit($name);
-						$paths = $this->_paths($plugin);
-						$defaultPath = $paths[0] . 'Elements' . DS;
-						throw new LogicException(__d(
-							'cake_dev',
-							'You cannot extend an element which does not exist (%s).',
-							$defaultPath . $name . $this->ext
-						));
-					}
-					break;
-				case self::TYPE_LAYOUT:
-					$parent = $this->_getLayoutFileName($name);
-					break;
-				default:
-					$parent = $this->_getViewFileName($name);
-			}
-		}
+  public function extend($name) {
+    if ($name[0] === '/' || $this->_currentType === self::TYPE_VIEW) {
+      $parent = $this->_getViewFileName($name);
+    } else {
+      switch ($this->_currentType) {
+        case self::TYPE_ELEMENT:
+          $parent = $this->_getElementFileName($name);
+          if (!$parent) {
+            list($plugin, $name) = $this->pluginSplit($name);
+            $paths = $this->_paths($plugin);
+            $defaultPath = $paths[0] . 'Elements' . DS;
+            throw new LogicException(__d(
+              'cake_dev',
+              'You cannot extend an element which does not exist (%s).',
+              $defaultPath . $name . $this->ext
+            ));
+          }
+          break;
+        case self::TYPE_LAYOUT:
+          $parent = $this->_getLayoutFileName($name);
+          break;
+        default:
+          $parent = $this->_getViewFileName($name);
+      }
+    }
 
-		if ($parent == $this->_current) {
-			throw new LogicException(__d('cake_dev', 'You cannot have views extend themselves.'));
-		}
-		if (isset($this->_parents[$parent]) && $this->_parents[$parent] == $this->_current) {
-			throw new LogicException(__d('cake_dev', 'You cannot have views extend in a loop.'));
-		}
-		$this->_parents[$this->_current] = $parent;
-	}
+    if ($parent == $this->_current) {
+      throw new LogicException(__d('cake_dev', 'You cannot have views extend themselves.'));
+    }
+    if (isset($this->_parents[$parent]) && $this->_parents[$parent] == $this->_current) {
+      throw new LogicException(__d('cake_dev', 'You cannot have views extend in a loop.'));
+    }
+    $this->_parents[$this->_current] = $parent;
+  }
 
 /**
  * Adds a script block or other element to be inserted in $scripts_for_layout in
@@ -740,15 +740,15 @@ class View extends Object {
  * @deprecated Will be removed in 3.0. Superseded by blocks functionality.
  * @see View::start()
  */
-	public function addScript($name, $content = null) {
-		if (empty($content)) {
-			if (!in_array($name, array_values($this->_scripts))) {
-				$this->_scripts[] = $name;
-			}
-		} else {
-			$this->_scripts[$name] = $content;
-		}
-	}
+  public function addScript($name, $content = null) {
+    if (empty($content)) {
+      if (!in_array($name, array_values($this->_scripts))) {
+        $this->_scripts[] = $name;
+      }
+    } else {
+      $this->_scripts[$name] = $content;
+    }
+  }
 
 /**
  * Generates a unique, non-random DOM ID for an object, based on the object type and the target URL.
@@ -757,17 +757,17 @@ class View extends Object {
  * @param string $url The object's target URL
  * @return string
  */
-	public function uuid($object, $url) {
-		$c = 1;
-		$url = Router::url($url);
-		$hash = $object . substr(md5($object . $url), 0, 10);
-		while (in_array($hash, $this->uuids)) {
-			$hash = $object . substr(md5($object . $url . $c), 0, 10);
-			$c++;
-		}
-		$this->uuids[] = $hash;
-		return $hash;
-	}
+  public function uuid($object, $url) {
+    $c = 1;
+    $url = Router::url($url);
+    $hash = $object . substr(md5($object . $url), 0, 10);
+    while (in_array($hash, $this->uuids)) {
+      $hash = $object . substr(md5($object . $url . $c), 0, 10);
+      $c++;
+    }
+    $this->uuids[] = $hash;
+    return $hash;
+  }
 
 /**
  * Allows a template or element to set a variable that will be available in
@@ -778,22 +778,22 @@ class View extends Object {
  *    Unused if $one is an associative array, otherwise serves as the values to $one's keys.
  * @return void
  */
-	public function set($one, $two = null) {
-		$data = null;
-		if (is_array($one)) {
-			if (is_array($two)) {
-				$data = array_combine($one, $two);
-			} else {
-				$data = $one;
-			}
-		} else {
-			$data = array($one => $two);
-		}
-		if (!$data) {
-			return false;
-		}
-		$this->viewVars = $data + $this->viewVars;
-	}
+  public function set($one, $two = null) {
+    $data = null;
+    if (is_array($one)) {
+      if (is_array($two)) {
+        $data = array_combine($one, $two);
+      } else {
+        $data = $one;
+      }
+    } else {
+      $data = array($one => $two);
+    }
+    if (!$data) {
+      return false;
+    }
+    $this->viewVars = $data + $this->viewVars;
+  }
 
 /**
  * Magic accessor for helpers. Provides access to attributes that were deprecated.
@@ -801,26 +801,26 @@ class View extends Object {
  * @param string $name Name of the attribute to get.
  * @return mixed
  */
-	public function __get($name) {
-		switch ($name) {
-			case 'base':
-			case 'here':
-			case 'webroot':
-			case 'data':
-				return $this->request->{$name};
-			case 'action':
-				return $this->request->params['action'];
-			case 'params':
-				return $this->request;
-			case 'output':
-				return $this->Blocks->get('content');
-		}
-		if (isset($this->Helpers->{$name})) {
-			$this->{$name} = $this->Helpers->{$name};
-			return $this->Helpers->{$name};
-		}
-		return $this->{$name};
-	}
+  public function __get($name) {
+    switch ($name) {
+      case 'base':
+      case 'here':
+      case 'webroot':
+      case 'data':
+        return $this->request->{$name};
+      case 'action':
+        return $this->request->params['action'];
+      case 'params':
+        return $this->request;
+      case 'output':
+        return $this->Blocks->get('content');
+    }
+    if (isset($this->Helpers->{$name})) {
+      $this->{$name} = $this->Helpers->{$name};
+      return $this->Helpers->{$name};
+    }
+    return $this->{$name};
+  }
 
 /**
  * Magic accessor for deprecated attributes.
@@ -829,14 +829,14 @@ class View extends Object {
  * @param mixed $value Value of the attribute to set.
  * @return mixed
  */
-	public function __set($name, $value) {
-		switch ($name) {
-			case 'output':
-				return $this->Blocks->set('content', $value);
-			default:
-				$this->{$name} = $value;
-		}
-	}
+  public function __set($name, $value) {
+    switch ($name) {
+      case 'output':
+        return $this->Blocks->set('content', $value);
+      default:
+        $this->{$name} = $value;
+    }
+  }
 
 /**
  * Magic isset check for deprecated attributes.
@@ -844,29 +844,29 @@ class View extends Object {
  * @param string $name Name of the attribute to check.
  * @return boolean
  */
-	public function __isset($name) {
-		if (isset($this->{$name})) {
-			return true;
-		}
-		$magicGet = array('base', 'here', 'webroot', 'data', 'action', 'params', 'output');
-		if (in_array($name, $magicGet)) {
-			return $this->__get($name) !== null;
-		}
-		return false;
-	}
+  public function __isset($name) {
+    if (isset($this->{$name})) {
+      return true;
+    }
+    $magicGet = array('base', 'here', 'webroot', 'data', 'action', 'params', 'output');
+    if (in_array($name, $magicGet)) {
+      return $this->__get($name) !== null;
+    }
+    return false;
+  }
 
 /**
  * Interact with the HelperCollection to load all the helpers.
  *
  * @return void
  */
-	public function loadHelpers() {
-		$helpers = HelperCollection::normalizeObjectArray($this->helpers);
-		foreach ($helpers as $properties) {
-			list(, $class) = pluginSplit($properties['class']);
-			$this->{$class} = $this->Helpers->load($properties['class'], $properties['settings']);
-		}
-	}
+  public function loadHelpers() {
+    $helpers = HelperCollection::normalizeObjectArray($this->helpers);
+    foreach ($helpers as $properties) {
+      list(, $class) = pluginSplit($properties['class']);
+      $this->{$class} = $this->Helpers->load($properties['class'], $properties['settings']);
+    }
+  }
 
 /**
  * Renders and returns output for given view filename with its
@@ -877,41 +877,41 @@ class View extends Object {
  * @return string Rendered output
  * @throws CakeException when a block is left open.
  */
-	protected function _render($viewFile, $data = array()) {
-		if (empty($data)) {
-			$data = $this->viewVars;
-		}
-		$this->_current = $viewFile;
-		$initialBlocks = count($this->Blocks->unclosed());
+  protected function _render($viewFile, $data = array()) {
+    if (empty($data)) {
+      $data = $this->viewVars;
+    }
+    $this->_current = $viewFile;
+    $initialBlocks = count($this->Blocks->unclosed());
 
-		$eventManager = $this->getEventManager();
-		$beforeEvent = new CakeEvent('View.beforeRenderFile', $this, array($viewFile));
+    $eventManager = $this->getEventManager();
+    $beforeEvent = new CakeEvent('View.beforeRenderFile', $this, array($viewFile));
 
-		$eventManager->dispatch($beforeEvent);
-		$content = $this->_evaluate($viewFile, $data);
+    $eventManager->dispatch($beforeEvent);
+    $content = $this->_evaluate($viewFile, $data);
 
-		$afterEvent = new CakeEvent('View.afterRenderFile', $this, array($viewFile, $content));
+    $afterEvent = new CakeEvent('View.afterRenderFile', $this, array($viewFile, $content));
 
-		$afterEvent->modParams = 1;
-		$eventManager->dispatch($afterEvent);
-		$content = $afterEvent->data[1];
+    $afterEvent->modParams = 1;
+    $eventManager->dispatch($afterEvent);
+    $content = $afterEvent->data[1];
 
-		if (isset($this->_parents[$viewFile])) {
-			$this->_stack[] = $this->fetch('content');
-			$this->assign('content', $content);
+    if (isset($this->_parents[$viewFile])) {
+      $this->_stack[] = $this->fetch('content');
+      $this->assign('content', $content);
 
-			$content = $this->_render($this->_parents[$viewFile]);
-			$this->assign('content', array_pop($this->_stack));
-		}
+      $content = $this->_render($this->_parents[$viewFile]);
+      $this->assign('content', array_pop($this->_stack));
+    }
 
-		$remainingBlocks = count($this->Blocks->unclosed());
+    $remainingBlocks = count($this->Blocks->unclosed());
 
-		if ($initialBlocks !== $remainingBlocks) {
-			throw new CakeException(__d('cake_dev', 'The "%s" block was left open. Blocks are not allowed to cross files.', $this->Blocks->active()));
-		}
+    if ($initialBlocks !== $remainingBlocks) {
+      throw new CakeException(__d('cake_dev', 'The "%s" block was left open. Blocks are not allowed to cross files.', $this->Blocks->active()));
+    }
 
-		return $content;
-	}
+    return $content;
+  }
 
 /**
  * Sandbox method to evaluate a template / view script in.
@@ -921,16 +921,16 @@ class View extends Object {
  *    If empty the current View::$viewVars will be used.
  * @return string Rendered output
  */
-	protected function _evaluate($viewFile, $dataForView) {
-		$this->__viewFile = $viewFile;
-		extract($dataForView);
-		ob_start();
+  protected function _evaluate($viewFile, $dataForView) {
+    $this->__viewFile = $viewFile;
+    extract($dataForView);
+    ob_start();
 
-		include $this->__viewFile;
+    include $this->__viewFile;
 
-		unset($this->__viewFile);
-		return ob_get_clean();
-	}
+    unset($this->__viewFile);
+    return ob_get_clean();
+  }
 
 /**
  * Loads a helper. Delegates to the `HelperCollection::load()` to load the helper
@@ -940,9 +940,9 @@ class View extends Object {
  * @return Helper a constructed helper object.
  * @see HelperCollection::load()
  */
-	public function loadHelper($helperName, $settings = array()) {
-		return $this->Helpers->load($helperName, $settings);
-	}
+  public function loadHelper($helperName, $settings = array()) {
+    return $this->Helpers->load($helperName, $settings);
+  }
 
 /**
  * Returns filename of given action's template file (.ctp) as a string.
@@ -953,55 +953,55 @@ class View extends Object {
  * @return string Template filename
  * @throws MissingViewException when a view file could not be found.
  */
-	protected function _getViewFileName($name = null) {
-		$subDir = null;
+  protected function _getViewFileName($name = null) {
+    $subDir = null;
 
-		if ($this->subDir !== null) {
-			$subDir = $this->subDir . DS;
-		}
+    if ($this->subDir !== null) {
+      $subDir = $this->subDir . DS;
+    }
 
-		if ($name === null) {
-			$name = $this->view;
-		}
-		$name = str_replace('/', DS, $name);
-		list($plugin, $name) = $this->pluginSplit($name);
+    if ($name === null) {
+      $name = $this->view;
+    }
+    $name = str_replace('/', DS, $name);
+    list($plugin, $name) = $this->pluginSplit($name);
 
-		if (strpos($name, DS) === false && $name[0] !== '.') {
-			$name = $this->viewPath . DS . $subDir . Inflector::underscore($name);
-		} elseif (strpos($name, DS) !== false) {
-			if ($name[0] === DS || $name[1] === ':') {
-				if (is_file($name)) {
-					return $name;
-				}
-				$name = trim($name, DS);
-			} elseif ($name[0] === '.') {
-				$name = substr($name, 3);
-			} elseif (!$plugin || $this->viewPath !== $this->name) {
-				$name = $this->viewPath . DS . $subDir . $name;
-			}
-		}
-		$paths = $this->_paths($plugin);
-		$exts = $this->_getExtensions();
-		foreach ($exts as $ext) {
-			foreach ($paths as $path) {
-				if (file_exists($path . $name . $ext)) {
-					return $path . $name . $ext;
-				}
-			}
-		}
-		$defaultPath = $paths[0];
+    if (strpos($name, DS) === false && $name[0] !== '.') {
+      $name = $this->viewPath . DS . $subDir . Inflector::underscore($name);
+    } elseif (strpos($name, DS) !== false) {
+      if ($name[0] === DS || $name[1] === ':') {
+        if (is_file($name)) {
+          return $name;
+        }
+        $name = trim($name, DS);
+      } elseif ($name[0] === '.') {
+        $name = substr($name, 3);
+      } elseif (!$plugin || $this->viewPath !== $this->name) {
+        $name = $this->viewPath . DS . $subDir . $name;
+      }
+    }
+    $paths = $this->_paths($plugin);
+    $exts = $this->_getExtensions();
+    foreach ($exts as $ext) {
+      foreach ($paths as $path) {
+        if (file_exists($path . $name . $ext)) {
+          return $path . $name . $ext;
+        }
+      }
+    }
+    $defaultPath = $paths[0];
 
-		if ($this->plugin) {
-			$pluginPaths = App::path('plugins');
-			foreach ($paths as $path) {
-				if (strpos($path, $pluginPaths[0]) === 0) {
-					$defaultPath = $path;
-					break;
-				}
-			}
-		}
-		throw new MissingViewException(array('file' => $defaultPath . $name . $this->ext));
-	}
+    if ($this->plugin) {
+      $pluginPaths = App::path('plugins');
+      foreach ($paths as $path) {
+        if (strpos($path, $pluginPaths[0]) === 0) {
+          $defaultPath = $path;
+          break;
+        }
+      }
+    }
+    throw new MissingViewException(array('file' => $defaultPath . $name . $this->ext));
+  }
 
 /**
  * Splits a dot syntax plugin name into its plugin and filename.
@@ -1012,18 +1012,18 @@ class View extends Object {
  * @param boolean $fallback If true uses the plugin set in the current CakeRequest when parsed plugin is not loaded
  * @return array Array with 2 indexes. 0 => plugin name, 1 => filename
  */
-	public function pluginSplit($name, $fallback = true) {
-		$plugin = null;
-		list($first, $second) = pluginSplit($name);
-		if (CakePlugin::loaded($first) === true) {
-			$name = $second;
-			$plugin = $first;
-		}
-		if (isset($this->plugin) && !$plugin && $fallback) {
-			$plugin = $this->plugin;
-		}
-		return array($plugin, $name);
-	}
+  public function pluginSplit($name, $fallback = true) {
+    $plugin = null;
+    list($first, $second) = pluginSplit($name);
+    if (CakePlugin::loaded($first) === true) {
+      $name = $second;
+      $plugin = $first;
+    }
+    if (isset($this->plugin) && !$plugin && $fallback) {
+      $plugin = $this->plugin;
+    }
+    return array($plugin, $name);
+  }
 
 /**
  * Returns layout filename for this template as a string.
@@ -1032,42 +1032,42 @@ class View extends Object {
  * @return string Filename for layout file (.ctp).
  * @throws MissingLayoutException when a layout cannot be located
  */
-	protected function _getLayoutFileName($name = null) {
-		if ($name === null) {
-			$name = $this->layout;
-		}
-		$subDir = null;
+  protected function _getLayoutFileName($name = null) {
+    if ($name === null) {
+      $name = $this->layout;
+    }
+    $subDir = null;
 
-		if ($this->layoutPath !== null) {
-			$subDir = $this->layoutPath . DS;
-		}
-		list($plugin, $name) = $this->pluginSplit($name);
-		$paths = $this->_paths($plugin);
-		$file = 'Layouts' . DS . $subDir . $name;
+    if ($this->layoutPath !== null) {
+      $subDir = $this->layoutPath . DS;
+    }
+    list($plugin, $name) = $this->pluginSplit($name);
+    $paths = $this->_paths($plugin);
+    $file = 'Layouts' . DS . $subDir . $name;
 
-		$exts = $this->_getExtensions();
-		foreach ($exts as $ext) {
-			foreach ($paths as $path) {
-				if (file_exists($path . $file . $ext)) {
-					return $path . $file . $ext;
-				}
-			}
-		}
-		throw new MissingLayoutException(array('file' => $paths[0] . $file . $this->ext));
-	}
+    $exts = $this->_getExtensions();
+    foreach ($exts as $ext) {
+      foreach ($paths as $path) {
+        if (file_exists($path . $file . $ext)) {
+          return $path . $file . $ext;
+        }
+      }
+    }
+    throw new MissingLayoutException(array('file' => $paths[0] . $file . $this->ext));
+  }
 
 /**
  * Get the extensions that view files can use.
  *
  * @return array Array of extensions view files use.
  */
-	protected function _getExtensions() {
-		$exts = array($this->ext);
-		if ($this->ext !== '.ctp') {
-			$exts[] = '.ctp';
-		}
-		return $exts;
-	}
+  protected function _getExtensions() {
+    $exts = array($this->ext);
+    if ($this->ext !== '.ctp') {
+      $exts[] = '.ctp';
+    }
+    return $exts;
+  }
 
 /**
  * Finds an element filename, returns false on failure.
@@ -1075,20 +1075,20 @@ class View extends Object {
  * @param string $name The name of the element to find.
  * @return mixed Either a string to the element filename or false when one can't be found.
  */
-	protected function _getElementFileName($name) {
-		list($plugin, $name) = $this->pluginSplit($name);
+  protected function _getElementFileName($name) {
+    list($plugin, $name) = $this->pluginSplit($name);
 
-		$paths = $this->_paths($plugin);
-		$exts = $this->_getExtensions();
-		foreach ($exts as $ext) {
-			foreach ($paths as $path) {
-				if (file_exists($path . 'Elements' . DS . $name . $ext)) {
-					return $path . 'Elements' . DS . $name . $ext;
-				}
-			}
-		}
-		return false;
-	}
+    $paths = $this->_paths($plugin);
+    $exts = $this->_getExtensions();
+    foreach ($exts as $ext) {
+      foreach ($paths as $path) {
+        if (file_exists($path . 'Elements' . DS . $name . $ext)) {
+          return $path . 'Elements' . DS . $name . $ext;
+        }
+      }
+    }
+    return false;
+  }
 
 /**
  * Return all possible paths to find view files in order
@@ -1097,44 +1097,44 @@ class View extends Object {
  * @param boolean $cached Set to true to force a refresh of view paths.
  * @return array paths
  */
-	protected function _paths($plugin = null, $cached = true) {
-		if ($plugin === null && $cached === true && !empty($this->_paths)) {
-			return $this->_paths;
-		}
-		$paths = array();
-		$viewPaths = App::path('View');
-		$corePaths = array_merge(App::core('View'), App::core('Console/Templates/skel/View'));
+  protected function _paths($plugin = null, $cached = true) {
+    if ($plugin === null && $cached === true && !empty($this->_paths)) {
+      return $this->_paths;
+    }
+    $paths = array();
+    $viewPaths = App::path('View');
+    $corePaths = array_merge(App::core('View'), App::core('Console/Templates/skel/View'));
 
-		if (!empty($plugin)) {
-			$count = count($viewPaths);
-			for ($i = 0; $i < $count; $i++) {
-				if (!in_array($viewPaths[$i], $corePaths)) {
-					$paths[] = $viewPaths[$i] . 'Plugin' . DS . $plugin . DS;
-				}
-			}
-			$paths = array_merge($paths, App::path('View', $plugin));
-		}
+    if (!empty($plugin)) {
+      $count = count($viewPaths);
+      for ($i = 0; $i < $count; $i++) {
+        if (!in_array($viewPaths[$i], $corePaths)) {
+          $paths[] = $viewPaths[$i] . 'Plugin' . DS . $plugin . DS;
+        }
+      }
+      $paths = array_merge($paths, App::path('View', $plugin));
+    }
 
-		$paths = array_unique(array_merge($paths, $viewPaths));
-		if (!empty($this->theme)) {
-			$theme = Inflector::camelize($this->theme);
-			$themePaths = array();
-			foreach ($paths as $path) {
-				if (strpos($path, DS . 'Plugin' . DS) === false) {
-					if ($plugin) {
-						$themePaths[] = $path . 'Themed' . DS . $theme . DS . 'Plugin' . DS . $plugin . DS;
-					}
-					$themePaths[] = $path . 'Themed' . DS . $theme . DS;
-				}
-			}
-			$paths = array_merge($themePaths, $paths);
-		}
-		$paths = array_merge($paths, $corePaths);
-		if ($plugin !== null) {
-			return $paths;
-		}
-		return $this->_paths = $paths;
-	}
+    $paths = array_unique(array_merge($paths, $viewPaths));
+    if (!empty($this->theme)) {
+      $theme = Inflector::camelize($this->theme);
+      $themePaths = array();
+      foreach ($paths as $path) {
+        if (strpos($path, DS . 'Plugin' . DS) === false) {
+          if ($plugin) {
+            $themePaths[] = $path . 'Themed' . DS . $theme . DS . 'Plugin' . DS . $plugin . DS;
+          }
+          $themePaths[] = $path . 'Themed' . DS . $theme . DS;
+        }
+      }
+      $paths = array_merge($themePaths, $paths);
+    }
+    $paths = array_merge($paths, $corePaths);
+    if ($plugin !== null) {
+      return $paths;
+    }
+    return $this->_paths = $paths;
+  }
 
 /**
  * Checks if an element is cached and returns the cached data if present
@@ -1144,29 +1144,29 @@ class View extends Object {
  * @param array $options Element options
  * @return string|null
  */
-	protected function _elementCache($name, $data, $options) {
-		$plugin = null;
-		list($plugin, $name) = $this->pluginSplit($name);
+  protected function _elementCache($name, $data, $options) {
+    $plugin = null;
+    list($plugin, $name) = $this->pluginSplit($name);
 
-		$underscored = null;
-		if ($plugin) {
-			$underscored = Inflector::underscore($plugin);
-		}
-		$keys = array_merge(array($underscored, $name), array_keys($options), array_keys($data));
-		$this->elementCacheSettings = array(
-			'config' => $this->elementCache,
-			'key' => implode('_', $keys)
-		);
-		if (is_array($options['cache'])) {
-			$defaults = array(
-				'config' => $this->elementCache,
-				'key' => $this->elementCacheSettings['key']
-			);
-			$this->elementCacheSettings = array_merge($defaults, $options['cache']);
-		}
-		$this->elementCacheSettings['key'] = 'element_' . $this->elementCacheSettings['key'];
-		return Cache::read($this->elementCacheSettings['key'], $this->elementCacheSettings['config']);
-	}
+    $underscored = null;
+    if ($plugin) {
+      $underscored = Inflector::underscore($plugin);
+    }
+    $keys = array_merge(array($underscored, $name), array_keys($options), array_keys($data));
+    $this->elementCacheSettings = array(
+      'config' => $this->elementCache,
+      'key' => implode('_', $keys)
+    );
+    if (is_array($options['cache'])) {
+      $defaults = array(
+        'config' => $this->elementCache,
+        'key' => $this->elementCacheSettings['key']
+      );
+      $this->elementCacheSettings = array_merge($defaults, $options['cache']);
+    }
+    $this->elementCacheSettings['key'] = 'element_' . $this->elementCacheSettings['key'];
+    return Cache::read($this->elementCacheSettings['key'], $this->elementCacheSettings['config']);
+  }
 
 /**
  * Renders an element and fires the before and afterRender callbacks for it
@@ -1177,26 +1177,26 @@ class View extends Object {
  * @param array $options Element options
  * @return string
  */
-	protected function _renderElement($file, $data, $options) {
-		if ($options['callbacks']) {
-			$this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($file)));
-		}
+  protected function _renderElement($file, $data, $options) {
+    if ($options['callbacks']) {
+      $this->getEventManager()->dispatch(new CakeEvent('View.beforeRender', $this, array($file)));
+    }
 
-		$current = $this->_current;
-		$restore = $this->_currentType;
+    $current = $this->_current;
+    $restore = $this->_currentType;
 
-		$this->_currentType = self::TYPE_ELEMENT;
-		$element = $this->_render($file, array_merge($this->viewVars, $data));
+    $this->_currentType = self::TYPE_ELEMENT;
+    $element = $this->_render($file, array_merge($this->viewVars, $data));
 
-		$this->_currentType = $restore;
-		$this->_current = $current;
+    $this->_currentType = $restore;
+    $this->_current = $current;
 
-		if ($options['callbacks']) {
-			$this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($file, $element)));
-		}
-		if (isset($options['cache'])) {
-			Cache::write($this->elementCacheSettings['key'], $element, $this->elementCacheSettings['config']);
-		}
-		return $element;
-	}
+    if ($options['callbacks']) {
+      $this->getEventManager()->dispatch(new CakeEvent('View.afterRender', $this, array($file, $element)));
+    }
+    if (isset($options['cache'])) {
+      Cache::write($this->elementCacheSettings['key'], $element, $this->elementCacheSettings['config']);
+    }
+    return $element;
+  }
 }

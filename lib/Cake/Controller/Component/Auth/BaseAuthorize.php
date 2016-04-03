@@ -30,14 +30,14 @@ abstract class BaseAuthorize {
  *
  * @var Controller
  */
-	protected $_Controller = null;
+  protected $_Controller = null;
 
 /**
  * Component collection instance for getting more components.
  *
  * @var ComponentCollection
  */
-	protected $_Collection;
+  protected $_Collection;
 
 /**
  * Settings for authorize objects.
@@ -49,18 +49,18 @@ abstract class BaseAuthorize {
  *
  * @var array
  */
-	public $settings = array(
-		'actionPath' => null,
-		'actionMap' => array(
-			'index' => 'read',
-			'add' => 'create',
-			'edit' => 'update',
-			'view' => 'read',
-			'delete' => 'delete',
-			'remove' => 'delete'
-		),
-		'userModel' => 'User'
-	);
+  public $settings = array(
+    'actionPath' => null,
+    'actionMap' => array(
+      'index' => 'read',
+      'add' => 'create',
+      'edit' => 'update',
+      'view' => 'read',
+      'delete' => 'delete',
+      'remove' => 'delete'
+    ),
+    'userModel' => 'User'
+  );
 
 /**
  * Constructor
@@ -68,12 +68,12 @@ abstract class BaseAuthorize {
  * @param ComponentCollection $collection The controller for this request.
  * @param string $settings An array of settings. This class does not use any settings.
  */
-	public function __construct(ComponentCollection $collection, $settings = array()) {
-		$this->_Collection = $collection;
-		$controller = $collection->getController();
-		$this->controller($controller);
-		$this->settings = Hash::merge($this->settings, $settings);
-	}
+  public function __construct(ComponentCollection $collection, $settings = array()) {
+    $this->_Collection = $collection;
+    $controller = $collection->getController();
+    $this->controller($controller);
+    $this->settings = Hash::merge($this->settings, $settings);
+  }
 
 /**
  * Checks user authorization.
@@ -82,7 +82,7 @@ abstract class BaseAuthorize {
  * @param CakeRequest $request
  * @return boolean
  */
-	abstract public function authorize($user, CakeRequest $request);
+  abstract public function authorize($user, CakeRequest $request);
 
 /**
  * Accessor to the controller object.
@@ -91,16 +91,16 @@ abstract class BaseAuthorize {
  * @return mixed
  * @throws CakeException
  */
-	public function controller(Controller $controller = null) {
-		if ($controller) {
-			if (!$controller instanceof Controller) {
-				throw new CakeException(__d('cake_dev', '$controller needs to be an instance of Controller'));
-			}
-			$this->_Controller = $controller;
-			return true;
-		}
-		return $this->_Controller;
-	}
+  public function controller(Controller $controller = null) {
+    if ($controller) {
+      if (!$controller instanceof Controller) {
+        throw new CakeException(__d('cake_dev', '$controller needs to be an instance of Controller'));
+      }
+      $this->_Controller = $controller;
+      return true;
+    }
+    return $this->_Controller;
+  }
 
 /**
  * Get the action path for a given request. Primarily used by authorize objects
@@ -110,16 +110,16 @@ abstract class BaseAuthorize {
  * @param string $path
  * @return string the action path for the given request.
  */
-	public function action(CakeRequest $request, $path = '/:plugin/:controller/:action') {
-		$plugin = empty($request['plugin']) ? null : Inflector::camelize($request['plugin']) . '/';
-		$path = str_replace(
-			array(':controller', ':action', ':plugin/'),
-			array(Inflector::camelize($request['controller']), $request['action'], $plugin),
-			$this->settings['actionPath'] . $path
-		);
-		$path = str_replace('//', '/', $path);
-		return trim($path, '/');
-	}
+  public function action(CakeRequest $request, $path = '/:plugin/:controller/:action') {
+    $plugin = empty($request['plugin']) ? null : Inflector::camelize($request['plugin']) . '/';
+    $path = str_replace(
+      array(':controller', ':action', ':plugin/'),
+      array(Inflector::camelize($request['controller']), $request['action'], $plugin),
+      $this->settings['actionPath'] . $path
+    );
+    $path = str_replace('//', '/', $path);
+    return trim($path, '/');
+  }
 
 /**
  * Maps crud actions to actual action names. Used to modify or get the current mapped actions.
@@ -145,20 +145,20 @@ abstract class BaseAuthorize {
  * @return mixed Either the current mappings or null when setting.
  * @see AuthComponent::mapActions()
  */
-	public function mapActions($map = array()) {
-		if (empty($map)) {
-			return $this->settings['actionMap'];
-		}
-		$crud = array('create', 'read', 'update', 'delete');
-		foreach ($map as $action => $type) {
-			if (in_array($action, $crud) && is_array($type)) {
-				foreach ($type as $typedAction) {
-					$this->settings['actionMap'][$typedAction] = $action;
-				}
-			} else {
-				$this->settings['actionMap'][$action] = $type;
-			}
-		}
-	}
+  public function mapActions($map = array()) {
+    if (empty($map)) {
+      return $this->settings['actionMap'];
+    }
+    $crud = array('create', 'read', 'update', 'delete');
+    foreach ($map as $action => $type) {
+      if (in_array($action, $crud) && is_array($type)) {
+        foreach ($type as $typedAction) {
+          $this->settings['actionMap'][$typedAction] = $action;
+        }
+      } else {
+        $this->settings['actionMap'][$action] = $type;
+      }
+    }
+  }
 
 }

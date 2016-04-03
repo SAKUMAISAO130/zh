@@ -32,18 +32,18 @@ class CacheSession implements CakeSessionHandlerInterface {
  *
  * @return boolean Success
  */
-	public function open() {
-		return true;
-	}
+  public function open() {
+    return true;
+  }
 
 /**
  * Method called on close of a database session.
  *
  * @return boolean Success
  */
-	public function close() {
-		return true;
-	}
+  public function close() {
+    return true;
+  }
 
 /**
  * Method used to read from a database session.
@@ -51,9 +51,9 @@ class CacheSession implements CakeSessionHandlerInterface {
  * @param string $id The key of the value to read
  * @return mixed The value of the key or false if it does not exist
  */
-	public function read($id) {
-		return Cache::read($id, Configure::read('Session.handler.config'));
-	}
+  public function read($id) {
+    return Cache::read($id, Configure::read('Session.handler.config'));
+  }
 
 /**
  * Helper function called on write for database sessions.
@@ -62,9 +62,9 @@ class CacheSession implements CakeSessionHandlerInterface {
  * @param mixed $data The value of the data to be saved.
  * @return boolean True for successful write, false otherwise.
  */
-	public function write($id, $data) {
-		return Cache::write($id, $data, Configure::read('Session.handler.config'));
-	}
+  public function write($id, $data) {
+    return Cache::write($id, $data, Configure::read('Session.handler.config'));
+  }
 
 /**
  * Method called on the destruction of a database session.
@@ -72,9 +72,9 @@ class CacheSession implements CakeSessionHandlerInterface {
  * @param integer $id ID that uniquely identifies session in cache
  * @return boolean True for successful delete, false otherwise.
  */
-	public function destroy($id) {
-		return Cache::delete($id, Configure::read('Session.handler.config'));
-	}
+  public function destroy($id) {
+    return Cache::delete($id, Configure::read('Session.handler.config'));
+  }
 
 /**
  * Helper function called on gc for cache sessions.
@@ -82,8 +82,8 @@ class CacheSession implements CakeSessionHandlerInterface {
  * @param integer $expires Timestamp (defaults to current time)
  * @return boolean Success
  */
-	public function gc($expires = null) {
-		return Cache::gc(Configure::read('Session.handler.config'), $expires);
-	}
+  public function gc($expires = null) {
+    return Cache::gc(Configure::read('Session.handler.config'), $expires);
+  }
 
 }

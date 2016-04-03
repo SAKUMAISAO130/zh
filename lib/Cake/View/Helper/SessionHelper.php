@@ -39,9 +39,9 @@ class SessionHelper extends AppHelper {
  * @return mixed values from the session vars
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::read
  */
-	public function read($name = null) {
-		return CakeSession::read($name);
-	}
+  public function read($name = null) {
+    return CakeSession::read($name);
+  }
 
 /**
  * Used to check is a session key has been set
@@ -52,9 +52,9 @@ class SessionHelper extends AppHelper {
  * @return boolean
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::check
  */
-	public function check($name) {
-		return CakeSession::check($name);
-	}
+  public function check($name) {
+    return CakeSession::check($name);
+  }
 
 /**
  * Returns last error encountered in a session
@@ -64,9 +64,9 @@ class SessionHelper extends AppHelper {
  * @return string last error
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#displaying-notifications-or-flash-messages
  */
-	public function error() {
-		return CakeSession::error();
-	}
+  public function error() {
+    return CakeSession::error();
+  }
 
 /**
  * Used to render the message set in Controller::Session::setFlash()
@@ -104,8 +104,8 @@ class SessionHelper extends AppHelper {
  *
  * {{{
  * echo $this->Session->flash('flash', array(
- *		'element' => 'my_custom_element',
- *		'params' => array('plugin' => 'my_plugin')
+ *    'element' => 'my_custom_element',
+ *    'params' => array('plugin' => 'my_plugin')
  * ));
  * }}}
  *
@@ -115,39 +115,39 @@ class SessionHelper extends AppHelper {
  * @return string
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::flash
  */
-	public function flash($key = 'flash', $attrs = array()) {
-		$out = false;
+  public function flash($key = 'flash', $attrs = array()) {
+    $out = false;
 
-		if (CakeSession::check('Message.' . $key)) {
-			$flash = CakeSession::read('Message.' . $key);
-			$message = $flash['message'];
-			unset($flash['message']);
+    if (CakeSession::check('Message.' . $key)) {
+      $flash = CakeSession::read('Message.' . $key);
+      $message = $flash['message'];
+      unset($flash['message']);
 
-			if (!empty($attrs)) {
-				$flash = array_merge($flash, $attrs);
-			}
+      if (!empty($attrs)) {
+        $flash = array_merge($flash, $attrs);
+      }
 
-			if ($flash['element'] === 'default') {
-				$class = 'message';
-				if (!empty($flash['params']['class'])) {
-					$class = $flash['params']['class'];
-				}
-				$out = '<div id="' . $key . 'Message" class="' . $class . '">' . $message . '</div>';
-			} elseif (!$flash['element']) {
-				$out = $message;
-			} else {
-				$options = array();
-				if (isset($flash['params']['plugin'])) {
-					$options['plugin'] = $flash['params']['plugin'];
-				}
-				$tmpVars = $flash['params'];
-				$tmpVars['message'] = $message;
-				$out = $this->_View->element($flash['element'], $tmpVars, $options);
-			}
-			CakeSession::delete('Message.' . $key);
-		}
-		return $out;
-	}
+      if ($flash['element'] === 'default') {
+        $class = 'message';
+        if (!empty($flash['params']['class'])) {
+          $class = $flash['params']['class'];
+        }
+        $out = '<div id="' . $key . 'Message" class="' . $class . '">' . $message . '</div>';
+      } elseif (!$flash['element']) {
+        $out = $message;
+      } else {
+        $options = array();
+        if (isset($flash['params']['plugin'])) {
+          $options['plugin'] = $flash['params']['plugin'];
+        }
+        $tmpVars = $flash['params'];
+        $tmpVars['message'] = $message;
+        $out = $this->_View->element($flash['element'], $tmpVars, $options);
+      }
+      CakeSession::delete('Message.' . $key);
+    }
+    return $out;
+  }
 
 /**
  * Used to check is a session is valid in a view
@@ -155,8 +155,8 @@ class SessionHelper extends AppHelper {
  * @return boolean
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html#SessionHelper::valid
  */
-	public function valid() {
-		return CakeSession::valid();
-	}
+  public function valid() {
+    return CakeSession::valid();
+  }
 
 }

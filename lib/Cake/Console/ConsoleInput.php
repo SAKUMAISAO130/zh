@@ -28,7 +28,7 @@ class ConsoleInput {
  *
  * @var resource
  */
-	protected $_input;
+  protected $_input;
 
 /**
  * Can this instance use readline?
@@ -39,33 +39,33 @@ class ConsoleInput {
  *
  * @var boolean
  */
-	protected $_canReadline;
+  protected $_canReadline;
 
 /**
  * Constructor
  *
  * @param string $handle The location of the stream to use as input.
  */
-	public function __construct($handle = 'php://stdin') {
-		$this->_canReadline = extension_loaded('readline') && $handle == 'php://stdin' ? true : false;
-		$this->_input = fopen($handle, 'r');
-	}
+  public function __construct($handle = 'php://stdin') {
+    $this->_canReadline = extension_loaded('readline') && $handle == 'php://stdin' ? true : false;
+    $this->_input = fopen($handle, 'r');
+  }
 
 /**
  * Read a value from the stream
  *
  * @return mixed The value of the stream
  */
-	public function read() {
-		if ($this->_canReadline) {
-			$line = readline('');
-			if (!empty($line)) {
-				readline_add_history($line);
-			}
-			return $line;
-		}
-		return fgets($this->_input);
-	}
+  public function read() {
+    if ($this->_canReadline) {
+      $line = readline('');
+      if (!empty($line)) {
+        readline_add_history($line);
+      }
+      return $line;
+    }
+    return fgets($this->_input);
+  }
 
 /**
  * Checks if data is available on the stream
@@ -73,10 +73,10 @@ class ConsoleInput {
  * @param integer $timeout An optional time to wait for data
  * @return boolean True for data available, false otherwise
  */
-	public function dataAvailable($timeout = 0) {
-		$readFds = array($this->_input);
-		$readyFds = stream_select($readFds, $writeFds, $errorFds, $timeout);
-		return ($readyFds > 0);
-	}
+  public function dataAvailable($timeout = 0) {
+    $readFds = array($this->_input);
+    $readyFds = stream_select($readFds, $writeFds, $errorFds, $timeout);
+    return ($readyFds > 0);
+  }
 
 }

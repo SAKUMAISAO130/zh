@@ -31,23 +31,23 @@ class TaskCollection extends ObjectCollection {
  *
  * @var Shell
  */
-	protected $_Shell;
+  protected $_Shell;
 
 /**
  * The directory inside each shell path that contains tasks.
  *
  * @var string
  */
-	public $taskPathPrefix = 'tasks/';
+  public $taskPathPrefix = 'tasks/';
 
 /**
  * Constructor
  *
  * @param Shell $Shell
  */
-	public function __construct(Shell $Shell) {
-		$this->_Shell = $Shell;
-	}
+  public function __construct(Shell $Shell) {
+    $this->_Shell = $Shell;
+  }
 
 /**
  * Loads/constructs a task. Will return the instance in the registry if it already exists.
@@ -67,34 +67,34 @@ class TaskCollection extends ObjectCollection {
  * @return Task A task object, Either the existing loaded task or a new one.
  * @throws MissingTaskException when the task could not be found
  */
-	public function load($task, $settings = array()) {
-		if (is_array($settings) && isset($settings['className'])) {
-			$alias = $task;
-			$task = $settings['className'];
-		}
-		list($plugin, $name) = pluginSplit($task, true);
-		if (!isset($alias)) {
-			$alias = $name;
-		}
+  public function load($task, $settings = array()) {
+    if (is_array($settings) && isset($settings['className'])) {
+      $alias = $task;
+      $task = $settings['className'];
+    }
+    list($plugin, $name) = pluginSplit($task, true);
+    if (!isset($alias)) {
+      $alias = $name;
+    }
 
-		if (isset($this->_loaded[$alias])) {
-			return $this->_loaded[$alias];
-		}
-		$taskClass = $name . 'Task';
-		App::uses($taskClass, $plugin . 'Console/Command/Task');
+    if (isset($this->_loaded[$alias])) {
+      return $this->_loaded[$alias];
+    }
+    $taskClass = $name . 'Task';
+    App::uses($taskClass, $plugin . 'Console/Command/Task');
 
-		$exists = class_exists($taskClass);
-		if (!$exists) {
-			throw new MissingTaskException(array(
-				'class' => $taskClass,
-				'plugin' => substr($plugin, 0, -1)
-			));
-		}
+    $exists = class_exists($taskClass);
+    if (!$exists) {
+      throw new MissingTaskException(array(
+        'class' => $taskClass,
+        'plugin' => substr($plugin, 0, -1)
+      ));
+    }
 
-		$this->_loaded[$alias] = new $taskClass(
-			$this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
-		);
-		return $this->_loaded[$alias];
-	}
+    $this->_loaded[$alias] = new $taskClass(
+      $this->_Shell->stdout, $this->_Shell->stderr, $this->_Shell->stdin
+    );
+    return $this->_loaded[$alias];
+  }
 
 }

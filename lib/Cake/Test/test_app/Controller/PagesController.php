@@ -35,14 +35,14 @@ class PagesController extends AppController {
  *
  * @var array
  */
-	public $helpers = array('Html', 'Session');
+  public $helpers = array('Html', 'Session');
 
 /**
  * This controller does not use a model
  *
  * @var array
  */
-	public $uses = array();
+  public $uses = array();
 
 /**
  * Displays a view
@@ -50,40 +50,40 @@ class PagesController extends AppController {
  * @param mixed What page to display
  * @return void
  * @throws NotFoundException When the view file could not be found
- *	or MissingViewException in debug mode.
+ *  or MissingViewException in debug mode.
  */
-	public function display() {
-		$path = func_get_args();
+  public function display() {
+    $path = func_get_args();
 
-		$count = count($path);
-		if (!$count) {
-			return $this->redirect('/');
-		}
-		$page = $subpage = $titleForLayout = null;
+    $count = count($path);
+    if (!$count) {
+      return $this->redirect('/');
+    }
+    $page = $subpage = $titleForLayout = null;
 
-		if (!empty($path[0])) {
-			$page = $path[0];
-		}
-		if (!empty($path[1])) {
-			$subpage = $path[1];
-		}
-		if (!empty($path[$count - 1])) {
-			$titleForLayout = Inflector::humanize($path[$count - 1]);
-		}
-		$this->set(array(
-			'page' => $page,
-			'subpage' => $subpage,
-			'title_for_layout' => $titleForLayout
-		));
+    if (!empty($path[0])) {
+      $page = $path[0];
+    }
+    if (!empty($path[1])) {
+      $subpage = $path[1];
+    }
+    if (!empty($path[$count - 1])) {
+      $titleForLayout = Inflector::humanize($path[$count - 1]);
+    }
+    $this->set(array(
+      'page' => $page,
+      'subpage' => $subpage,
+      'title_for_layout' => $titleForLayout
+    ));
 
-		try {
-			$this->render(implode('/', $path));
-		} catch (MissingViewException $e) {
-			if (Configure::read('debug')) {
-				throw $e;
-			}
-			throw new NotFoundException();
-		}
-	}
+    try {
+      $this->render(implode('/', $path));
+    } catch (MissingViewException $e) {
+      if (Configure::read('debug')) {
+        throw $e;
+      }
+      throw new NotFoundException();
+    }
+  }
 
 }

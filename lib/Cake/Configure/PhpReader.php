@@ -31,19 +31,19 @@ class PhpReader implements ConfigReaderInterface {
  *
  * @var string
  */
-	protected $_path = null;
+  protected $_path = null;
 
 /**
  * Constructor for PHP Config file reading.
  *
  * @param string $path The path to read config files from. Defaults to APP . 'Config' . DS
  */
-	public function __construct($path = null) {
-		if (!$path) {
-			$path = APP . 'Config' . DS;
-		}
-		$this->_path = $path;
-	}
+  public function __construct($path = null) {
+    if (!$path) {
+      $path = APP . 'Config' . DS;
+    }
+    $this->_path = $path;
+  }
 
 /**
  * Read a config file and return its contents.
@@ -57,22 +57,22 @@ class PhpReader implements ConfigReaderInterface {
  * @throws ConfigureException when files don't exist or they don't contain `$config`.
  *  Or when files contain '..' as this could lead to abusive reads.
  */
-	public function read($key) {
-		if (strpos($key, '..') !== false) {
-			throw new ConfigureException(__d('cake_dev', 'Cannot load configuration files with ../ in them.'));
-		}
+  public function read($key) {
+    if (strpos($key, '..') !== false) {
+      throw new ConfigureException(__d('cake_dev', 'Cannot load configuration files with ../ in them.'));
+    }
 
-		$file = $this->_getFilePath($key);
-		if (!is_file($file)) {
-			throw new ConfigureException(__d('cake_dev', 'Could not load configuration file: %s', $file));
-		}
+    $file = $this->_getFilePath($key);
+    if (!is_file($file)) {
+      throw new ConfigureException(__d('cake_dev', 'Could not load configuration file: %s', $file));
+    }
 
-		include $file;
-		if (!isset($config)) {
-			throw new ConfigureException(__d('cake_dev', 'No variable %s found in %s', '$config', $file));
-		}
-		return $config;
-	}
+    include $file;
+    if (!isset($config)) {
+      throw new ConfigureException(__d('cake_dev', 'No variable %s found in %s', '$config', $file));
+    }
+    return $config;
+  }
 
 /**
  * Converts the provided $data into a string of PHP code that can
@@ -83,12 +83,12 @@ class PhpReader implements ConfigReaderInterface {
  * @param array $data Data to dump.
  * @return integer Bytes saved.
  */
-	public function dump($key, $data) {
-		$contents = '<?php' . "\n" . '$config = ' . var_export($data, true) . ';';
+  public function dump($key, $data) {
+    $contents = '<?php' . "\n" . '$config = ' . var_export($data, true) . ';';
 
-		$filename = $this->_getFilePath($key);
-		return file_put_contents($filename, $contents);
-	}
+    $filename = $this->_getFilePath($key);
+    return file_put_contents($filename, $contents);
+  }
 
 /**
  * Get file path
@@ -97,20 +97,20 @@ class PhpReader implements ConfigReaderInterface {
  *  as a plugin prefix.
  * @return string Full file path
  */
-	protected function _getFilePath($key) {
-		if (substr($key, -4) === '.php') {
-			$key = substr($key, 0, -4);
-		}
-		list($plugin, $key) = pluginSplit($key);
-		$key .= '.php';
+  protected function _getFilePath($key) {
+    if (substr($key, -4) === '.php') {
+      $key = substr($key, 0, -4);
+    }
+    list($plugin, $key) = pluginSplit($key);
+    $key .= '.php';
 
-		if ($plugin) {
-			$file = App::pluginPath($plugin) . 'Config' . DS . $key;
-		} else {
-			$file = $this->_path . $key;
-		}
+    if ($plugin) {
+      $file = App::pluginPath($plugin) . 'Config' . DS . $key;
+    } else {
+      $file = $this->_path . $key;
+    }
 
-		return $file;
-	}
+    return $file;
+  }
 
 }

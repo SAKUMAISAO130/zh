@@ -32,12 +32,12 @@ class NumberTreeTwoFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id'	=> array('type' => 'integer', 'key' => 'primary'),
-		'name'	=> array('type' => 'string', 'null' => false),
-		'number_tree_id' => array('type' => 'integer', 'null' => false),
-		'parent_id' => 'integer',
-		'lft'	=> array('type' => 'integer', 'null' => false),
-		'rght'	=> array('type' => 'integer', 'null' => false)
-	);
+  public $fields = array(
+    'id'  => array('type' => 'integer', 'key' => 'primary'),
+    'name'  => array('type' => 'string', 'null' => false),
+    'number_tree_id' => array('type' => 'integer', 'null' => false),
+    'parent_id' => 'integer',
+    'lft'  => array('type' => 'integer', 'null' => false),
+    'rght'  => array('type' => 'integer', 'null' => false)
+  );
 }

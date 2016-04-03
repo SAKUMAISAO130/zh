@@ -28,17 +28,17 @@ class DeviceTypeCategoryFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false)
-	);
+  public $fields = array(
+    'id' => array('type' => 'integer', 'key' => 'primary'),
+    'name' => array('type' => 'string', 'null' => false)
+  );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array(
-		array('name' => 'DeviceTypeCategory 1')
-	);
+  public $records = array(
+    array('name' => 'DeviceTypeCategory 1')
+  );
 }

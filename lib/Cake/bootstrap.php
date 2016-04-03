@@ -21,118 +21,118 @@
 define('TIME_START', microtime(true));
 
 if (!defined('E_DEPRECATED')) {
-	define('E_DEPRECATED', 8192);
+  define('E_DEPRECATED', 8192);
 }
 
 if (!defined('E_USER_DEPRECATED')) {
-	define('E_USER_DEPRECATED', E_USER_NOTICE);
+  define('E_USER_DEPRECATED', E_USER_NOTICE);
 }
 error_reporting(E_ALL & ~E_DEPRECATED);
 
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-	define('CAKE_CORE_INCLUDE_PATH', dirname(dirname(__FILE__)));
+  define('CAKE_CORE_INCLUDE_PATH', dirname(dirname(__FILE__)));
 }
 
 if (!defined('CORE_PATH')) {
-	define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+  define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 }
 
 if (!defined('WEBROOT_DIR')) {
-	define('WEBROOT_DIR', 'webroot');
+  define('WEBROOT_DIR', 'webroot');
 }
 
 /**
  * Path to the cake directory.
  */
-	define('CAKE', CORE_PATH . 'Cake' . DS);
+  define('CAKE', CORE_PATH . 'Cake' . DS);
 
 /**
  * Path to the application's directory.
  */
 if (!defined('APP')) {
-	define('APP', ROOT . DS . APP_DIR . DS);
+  define('APP', ROOT . DS . APP_DIR . DS);
 }
 
 /**
  * Path to the application's libs directory.
  */
-	define('APPLIBS', APP . 'Lib' . DS);
+  define('APPLIBS', APP . 'Lib' . DS);
 
 /**
  * Path to the public CSS directory.
  */
 if (!defined('CSS')) {
-	define('CSS', WWW_ROOT . 'css' . DS);
+  define('CSS', WWW_ROOT . 'css' . DS);
 }
 
 /**
  * Path to the public JavaScript directory.
  */
 if (!defined('JS')) {
-	define('JS', WWW_ROOT . 'js' . DS);
+  define('JS', WWW_ROOT . 'js' . DS);
 }
 
 /**
  * Path to the public images directory.
  */
 if (!defined('IMAGES')) {
-	define('IMAGES', WWW_ROOT . 'img' . DS);
+  define('IMAGES', WWW_ROOT . 'img' . DS);
 }
 
 /**
  * Path to the tests directory.
  */
 if (!defined('TESTS')) {
-	define('TESTS', APP . 'Test' . DS);
+  define('TESTS', APP . 'Test' . DS);
 }
 
 /**
  * Path to the temporary files directory.
  */
 if (!defined('TMP')) {
-	define('TMP', APP . 'tmp' . DS);
+  define('TMP', APP . 'tmp' . DS);
 }
 
 /**
  * Path to the logs directory.
  */
 if (!defined('LOGS')) {
-	define('LOGS', TMP . 'logs' . DS);
+  define('LOGS', TMP . 'logs' . DS);
 }
 
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
  */
 if (!defined('CACHE')) {
-	define('CACHE', TMP . 'cache' . DS);
+  define('CACHE', TMP . 'cache' . DS);
 }
 
 /**
  * Path to the vendors directory.
  */
 if (!defined('VENDORS')) {
-	define('VENDORS', ROOT . DS . 'vendors' . DS);
+  define('VENDORS', ROOT . DS . 'vendors' . DS);
 }
 
 /**
  * Web path to the public images directory.
  */
 if (!defined('IMAGES_URL')) {
-	define('IMAGES_URL', 'img/');
+  define('IMAGES_URL', 'img/');
 }
 
 /**
  * Web path to the CSS files directory.
  */
 if (!defined('CSS_URL')) {
-	define('CSS_URL', 'css/');
+  define('CSS_URL', 'css/');
 }
 
 /**
  * Web path to the js files directory.
  */
 if (!defined('JS_URL')) {
-	define('JS_URL', 'js/');
+  define('JS_URL', 'js/');
 }
 
 require CAKE . 'basics.php';
@@ -152,18 +152,18 @@ App::uses('Multibyte', 'I18n');
  * Full URL prefix
  */
 if (!defined('FULL_BASE_URL')) {
-	$s = null;
-	if (env('HTTPS')) {
-		$s = 's';
-	}
+  $s = null;
+  if (env('HTTPS')) {
+    $s = 's';
+  }
 
-	$httpHost = env('HTTP_HOST');
+  $httpHost = env('HTTP_HOST');
 
-	if (isset($httpHost)) {
-		define('FULL_BASE_URL', 'http' . $s . '://' . $httpHost);
-		Configure::write('App.fullBaseUrl', FULL_BASE_URL);
-	}
-	unset($httpHost, $s);
+  if (isset($httpHost)) {
+    define('FULL_BASE_URL', 'http' . $s . '://' . $httpHost);
+    Configure::write('App.fullBaseUrl', FULL_BASE_URL);
+  }
+  unset($httpHost, $s);
 }
 
 Configure::write('App.imageBaseUrl', IMAGES_URL);
@@ -175,13 +175,13 @@ App::$bootstrapping = true;
 Configure::bootstrap(isset($boot) ? $boot : true);
 
 if (function_exists('mb_internal_encoding')) {
-	$encoding = Configure::read('App.encoding');
-	if (!empty($encoding)) {
-		mb_internal_encoding($encoding);
-	}
-	if (!empty($encoding) && function_exists('mb_regex_encoding')) {
-		mb_regex_encoding($encoding);
-	}
+  $encoding = Configure::read('App.encoding');
+  if (!empty($encoding)) {
+    mb_internal_encoding($encoding);
+  }
+  if (!empty($encoding) && function_exists('mb_regex_encoding')) {
+    mb_regex_encoding($encoding);
+  }
 }
 
 if (!function_exists('mb_stripos')) {
@@ -196,9 +196,9 @@ if (!function_exists('mb_stripos')) {
  * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string, or false
  *    if $needle is not found.
  */
-	function mb_stripos($haystack, $needle, $offset = 0, $encoding = null) {
-		return Multibyte::stripos($haystack, $needle, $offset);
-	}
+  function mb_stripos($haystack, $needle, $offset = 0, $encoding = null) {
+    return Multibyte::stripos($haystack, $needle, $offset);
+  }
 
 }
 
@@ -216,9 +216,9 @@ if (!function_exists('mb_stristr')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string|boolean The portion of $haystack, or false if $needle is not found.
  */
-	function mb_stristr($haystack, $needle, $part = false, $encoding = null) {
-		return Multibyte::stristr($haystack, $needle, $part);
-	}
+  function mb_stristr($haystack, $needle, $part = false, $encoding = null) {
+    return Multibyte::stristr($haystack, $needle, $part);
+  }
 
 }
 
@@ -232,9 +232,9 @@ if (!function_exists('mb_strlen')) {
  * @return integer The number of characters in string $string having character encoding encoding.
  *    A multi-byte character is counted as 1.
  */
-	function mb_strlen($string, $encoding = null) {
-		return Multibyte::strlen($string);
-	}
+  function mb_strlen($string, $encoding = null) {
+    return Multibyte::strlen($string);
+  }
 
 }
 
@@ -250,9 +250,9 @@ if (!function_exists('mb_strpos')) {
  * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string.
  *    If $needle is not found, it returns false.
  */
-	function mb_strpos($haystack, $needle, $offset = 0, $encoding = null) {
-		return Multibyte::strpos($haystack, $needle, $offset);
-	}
+  function mb_strpos($haystack, $needle, $offset = 0, $encoding = null) {
+    return Multibyte::strpos($haystack, $needle, $offset);
+  }
 
 }
 
@@ -270,9 +270,9 @@ if (!function_exists('mb_strrchr')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string|boolean The portion of $haystack. or false if $needle is not found.
  */
-	function mb_strrchr($haystack, $needle, $part = false, $encoding = null) {
-		return Multibyte::strrchr($haystack, $needle, $part);
-	}
+  function mb_strrchr($haystack, $needle, $part = false, $encoding = null) {
+    return Multibyte::strrchr($haystack, $needle, $part);
+  }
 
 }
 
@@ -290,9 +290,9 @@ if (!function_exists('mb_strrichr')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string|boolean The portion of $haystack. or false if $needle is not found.
  */
-	function mb_strrichr($haystack, $needle, $part = false, $encoding = null) {
-		return Multibyte::strrichr($haystack, $needle, $part);
-	}
+  function mb_strrichr($haystack, $needle, $part = false, $encoding = null) {
+    return Multibyte::strrichr($haystack, $needle, $part);
+  }
 
 }
 
@@ -308,9 +308,9 @@ if (!function_exists('mb_strripos')) {
  * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string,
  *    or false if $needle is not found.
  */
-	function mb_strripos($haystack, $needle, $offset = 0, $encoding = null) {
-		return Multibyte::strripos($haystack, $needle, $offset);
-	}
+  function mb_strripos($haystack, $needle, $offset = 0, $encoding = null) {
+    return Multibyte::strripos($haystack, $needle, $offset);
+  }
 
 }
 
@@ -327,9 +327,9 @@ if (!function_exists('mb_strrpos')) {
  * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string.
  *    If $needle is not found, it returns false.
  */
-	function mb_strrpos($haystack, $needle, $offset = 0, $encoding = null) {
-		return Multibyte::strrpos($haystack, $needle, $offset);
-	}
+  function mb_strrpos($haystack, $needle, $offset = 0, $encoding = null) {
+    return Multibyte::strrpos($haystack, $needle, $offset);
+  }
 
 }
 
@@ -347,9 +347,9 @@ if (!function_exists('mb_strstr')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string|boolean The portion of $haystack, or true if $needle is not found.
  */
-	function mb_strstr($haystack, $needle, $part = false, $encoding = null) {
-		return Multibyte::strstr($haystack, $needle, $part);
-	}
+  function mb_strstr($haystack, $needle, $part = false, $encoding = null) {
+    return Multibyte::strstr($haystack, $needle, $part);
+  }
 
 }
 
@@ -362,9 +362,9 @@ if (!function_exists('mb_strtolower')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string with all alphabetic characters converted to lowercase.
  */
-	function mb_strtolower($string, $encoding = null) {
-		return Multibyte::strtolower($string);
-	}
+  function mb_strtolower($string, $encoding = null) {
+    return Multibyte::strtolower($string);
+  }
 
 }
 
@@ -377,9 +377,9 @@ if (!function_exists('mb_strtoupper')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string with all alphabetic characters converted to uppercase.
  */
-	function mb_strtoupper($string, $encoding = null) {
-		return Multibyte::strtoupper($string);
-	}
+  function mb_strtoupper($string, $encoding = null) {
+    return Multibyte::strtoupper($string);
+  }
 
 }
 
@@ -393,9 +393,9 @@ if (!function_exists('mb_substr_count')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return integer The number of times the $needle substring occurs in the $haystack string.
  */
-	function mb_substr_count($haystack, $needle, $encoding = null) {
-		return Multibyte::substrCount($haystack, $needle);
-	}
+  function mb_substr_count($haystack, $needle, $encoding = null) {
+    return Multibyte::substrCount($haystack, $needle);
+  }
 
 }
 
@@ -410,9 +410,9 @@ if (!function_exists('mb_substr')) {
  * @param string $encoding Character encoding name to use. If it is omitted, internal character encoding is used.
  * @return string The portion of $string specified by the $string and $length parameters.
  */
-	function mb_substr($string, $start, $length = null, $encoding = null) {
-		return Multibyte::substr($string, $start, $length);
-	}
+  function mb_substr($string, $start, $length = null, $encoding = null) {
+    return Multibyte::substr($string, $start, $length);
+  }
 
 }
 
@@ -433,8 +433,8 @@ if (!function_exists('mb_encode_mimeheader')) {
  * @param integer $indent [definition unknown and appears to have no affect]
  * @return string A converted version of the string represented in ASCII.
  */
-	function mb_encode_mimeheader($str, $charset = 'UTF-8', $transferEncoding = 'B', $linefeed = "\r\n", $indent = 1) {
-		return Multibyte::mimeEncode($str, $charset, $linefeed);
-	}
+  function mb_encode_mimeheader($str, $charset = 'UTF-8', $transferEncoding = 'B', $linefeed = "\r\n", $indent = 1) {
+    return Multibyte::mimeEncode($str, $charset, $linefeed);
+  }
 
 }

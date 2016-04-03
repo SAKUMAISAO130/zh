@@ -29,7 +29,7 @@ class SimplePasswordHasher extends AbstractPasswordHasher {
  *
  * @var array
  */
-	protected $_config = array('hashType' => null);
+  protected $_config = array('hashType' => null);
 
 /**
  * Generates password hash.
@@ -38,9 +38,9 @@ class SimplePasswordHasher extends AbstractPasswordHasher {
  * @return string Password hash
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/authentication.html#hashing-passwords
  */
-	public function hash($password) {
-		return Security::hash($password, $this->_config['hashType'], true);
-	}
+  public function hash($password) {
+    return Security::hash($password, $this->_config['hashType'], true);
+  }
 
 /**
  * Check hash. Generate hash for user provided password and check against existing hash.
@@ -49,8 +49,8 @@ class SimplePasswordHasher extends AbstractPasswordHasher {
  * @param string Existing hashed password.
  * @return boolean True if hashes match else false.
  */
-	public function check($password, $hashedPassword) {
-		return $hashedPassword === $this->hash($password);
-	}
+  public function check($password, $hashedPassword) {
+    return $hashedPassword === $this->hash($password);
+  }
 
 }

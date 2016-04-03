@@ -23,54 +23,54 @@
  */
 class TestsAppsPostsController extends AppController {
 
-	public $uses = array('Post');
+  public $uses = array('Post');
 
-	public $viewPath = 'TestsApps';
+  public $viewPath = 'TestsApps';
 
-	public function add() {
-		$data = array(
-			'Post' => array(
-				'title' => 'Test article',
-				'body' => 'Body of article.',
-				'author_id' => 1
-			)
-		);
-		$this->Post->save($data);
+  public function add() {
+    $data = array(
+      'Post' => array(
+        'title' => 'Test article',
+        'body' => 'Body of article.',
+        'author_id' => 1
+      )
+    );
+    $this->Post->save($data);
 
-		$this->set('posts', $this->Post->find('all'));
-		$this->render('index');
-	}
+    $this->set('posts', $this->Post->find('all'));
+    $this->render('index');
+  }
 
 /**
  * check URL params
  *
  */
-	public function url_var() {
-		$this->set('params', $this->request->params);
-		$this->render('index');
-	}
+  public function url_var() {
+    $this->set('params', $this->request->params);
+    $this->render('index');
+  }
 
 /**
  * post var testing
  *
  */
-	public function post_var() {
-		$this->set('data', $this->request->data);
-		$this->render('index');
-	}
+  public function post_var() {
+    $this->set('data', $this->request->data);
+    $this->render('index');
+  }
 
-	public function input_data() {
-		$this->set('data', $this->request->input('json_decode', true));
-		$this->render('index');
-	}
+  public function input_data() {
+    $this->set('data', $this->request->input('json_decode', true));
+    $this->render('index');
+  }
 
 /**
  * Fixturized action for testAction()
  *
  */
-	public function fixtured() {
-		$this->set('posts', $this->Post->find('all'));
-		$this->render('index');
-	}
+  public function fixtured() {
+    $this->set('posts', $this->Post->find('all'));
+    $this->render('index');
+  }
 
 }

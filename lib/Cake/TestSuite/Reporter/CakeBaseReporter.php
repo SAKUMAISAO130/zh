@@ -29,21 +29,21 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @var boolean
  */
-	protected $_headerSent = false;
+  protected $_headerSent = false;
 
 /**
  * Array of request parameters. Usually parsed GET params.
  *
  * @var array
  */
-	public $params = array();
+  public $params = array();
 
 /**
  * Character set for the output of test reporting.
  *
  * @var string
  */
-	protected $_characterSet;
+  protected $_characterSet;
 
 /**
  * Does nothing yet. The first output will
@@ -60,13 +60,13 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param string $charset The character set to output with. Defaults to UTF-8
  * @param array $params Array of request parameters the reporter should use. See above.
  */
-	public function __construct($charset = 'utf-8', $params = array()) {
-		if (!$charset) {
-			$charset = 'utf-8';
-		}
-		$this->_characterSet = $charset;
-		$this->params = $params;
-	}
+  public function __construct($charset = 'utf-8', $params = array()) {
+    if (!$charset) {
+      $charset = 'utf-8';
+    }
+    $this->_characterSet = $charset;
+    $this->params = $params;
+  }
 
 /**
  * Retrieves a list of test cases from the active Manager class,
@@ -74,10 +74,10 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @return mixed
  */
-	public function testCaseList() {
-		$testList = CakeTestLoader::generateTestList($this->params);
-		return $testList;
-	}
+  public function testCaseList() {
+    $testList = CakeTestLoader::generateTestList($this->params);
+    return $testList;
+  }
 
 /**
  * Paints the start of the response from the test suite.
@@ -85,8 +85,8 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @return void
  */
-	public function paintDocumentStart() {
-	}
+  public function paintDocumentStart() {
+  }
 
 /**
  * Paints the end of the response from the test suite.
@@ -94,8 +94,8 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @return void
  */
-	public function paintDocumentEnd() {
-	}
+  public function paintDocumentEnd() {
+  }
 
 /**
  * Paint a list of test sets, core, app, and plugin test sets
@@ -103,38 +103,38 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @return void
  */
-	public function paintTestMenu() {
-	}
+  public function paintTestMenu() {
+  }
 
 /**
  * Get the baseUrl if one is available.
  *
  * @return string The base URL for the request.
  */
-	public function baseUrl() {
-		if (!empty($_SERVER['PHP_SELF'])) {
-			return $_SERVER['PHP_SELF'];
-		}
-		return '';
-	}
+  public function baseUrl() {
+    if (!empty($_SERVER['PHP_SELF'])) {
+      return $_SERVER['PHP_SELF'];
+    }
+    return '';
+  }
 
 /**
  * Print result
  *
  * @param PHPUnit_Framework_TestResult $result
  */
-	public function printResult(PHPUnit_Framework_TestResult $result) {
-		$this->paintFooter($result);
-	}
+  public function printResult(PHPUnit_Framework_TestResult $result) {
+    $this->paintFooter($result);
+  }
 
 /**
  * Paint result
  *
  * @param PHPUnit_Framework_TestResult $result
  */
-	public function paintResult(PHPUnit_Framework_TestResult $result) {
-		$this->paintFooter($result);
-	}
+  public function paintResult(PHPUnit_Framework_TestResult $result) {
+    $this->paintFooter($result);
+  }
 
 /**
  * An error occurred.
@@ -143,9 +143,9 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  Exception              $e
  * @param  float                  $time
  */
-	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		$this->paintException($e, $test);
-	}
+  public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
+    $this->paintException($e, $test);
+  }
 
 /**
  * A failure occurred.
@@ -154,9 +154,9 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  PHPUnit_Framework_AssertionFailedError $e
  * @param  float $time
  */
-	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
-		$this->paintFail($e, $test);
-	}
+  public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
+    $this->paintFail($e, $test);
+  }
 
 /**
  * Incomplete test.
@@ -165,9 +165,9 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  Exception $e
  * @param  float $time
  */
-	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		$this->paintSkip($e, $test);
-	}
+  public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+    $this->paintSkip($e, $test);
+  }
 
 /**
  * Skipped test.
@@ -176,37 +176,37 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  Exception $e
  * @param  float $time
  */
-	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
-		$this->paintSkip($e, $test);
-	}
+  public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+    $this->paintSkip($e, $test);
+  }
 
 /**
  * A test suite started.
  *
  * @param  PHPUnit_Framework_TestSuite $suite
  */
-	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
-		if (!$this->_headerSent) {
-			echo $this->paintHeader();
-		}
-		echo __d('cake_dev', 'Running  %s', $suite->getName()) . "\n";
-	}
+  public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
+    if (!$this->_headerSent) {
+      echo $this->paintHeader();
+    }
+    echo __d('cake_dev', 'Running  %s', $suite->getName()) . "\n";
+  }
 
 /**
  * A test suite ended.
  *
  * @param  PHPUnit_Framework_TestSuite $suite
  */
-	public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
-	}
+  public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
+  }
 
 /**
  * A test started.
  *
  * @param  PHPUnit_Framework_Test $test
  */
-	public function startTest(PHPUnit_Framework_Test $test) {
-	}
+  public function startTest(PHPUnit_Framework_Test $test) {
+  }
 
 /**
  * A test ended.
@@ -214,12 +214,12 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  PHPUnit_Framework_Test $test
  * @param  float $time
  */
-	public function endTest(PHPUnit_Framework_Test $test, $time) {
-		$this->numAssertions += $test->getNumAssertions();
-		if ($test->hasFailed()) {
-			return;
-		}
-		$this->paintPass($test, $time);
-	}
+  public function endTest(PHPUnit_Framework_Test $test, $time) {
+    $this->numAssertions += $test->getNumAssertions();
+    if ($test->hasFailed()) {
+      return;
+    }
+    $this->paintPass($test, $time);
+  }
 
 }

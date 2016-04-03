@@ -31,9 +31,9 @@ class BlowfishPasswordHasher extends AbstractPasswordHasher {
  * @return string Password hash
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/authentication.html#using-bcrypt-for-passwords
  */
-	public function hash($password) {
-		return Security::hash($password, 'blowfish', false);
-	}
+  public function hash($password) {
+    return Security::hash($password, 'blowfish', false);
+  }
 
 /**
  * Check hash. Generate hash for user provided password and check against existing hash.
@@ -42,8 +42,8 @@ class BlowfishPasswordHasher extends AbstractPasswordHasher {
  * @param string Existing hashed password.
  * @return boolean True if hashes match else false.
  */
-	public function check($password, $hashedPassword) {
-		return $hashedPassword === Security::hash($password, 'blowfish', $hashedPassword);
-	}
+  public function check($password, $hashedPassword) {
+    return $hashedPassword === Security::hash($password, 'blowfish', $hashedPassword);
+  }
 
 }

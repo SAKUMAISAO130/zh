@@ -34,36 +34,36 @@ class FileLog extends BaseLog {
  * @var array
  * @see FileLog::__construct()
  */
-	protected $_defaults = array(
-		'path' => LOGS,
-		'file' => null,
-		'types' => null,
-		'scopes' => array(),
-		'rotate' => 10,
-		'size' => 10485760, // 10MB
-		'mask' => null,
-	);
+  protected $_defaults = array(
+    'path' => LOGS,
+    'file' => null,
+    'types' => null,
+    'scopes' => array(),
+    'rotate' => 10,
+    'size' => 10485760, // 10MB
+    'mask' => null,
+  );
 
 /**
  * Path to save log files on.
  *
  * @var string
  */
-	protected $_path = null;
+  protected $_path = null;
 
 /**
  * Log file name
  *
  * @var string
  */
-	protected $_file = null;
+  protected $_file = null;
 
 /**
  * Max file size, used for log file rotation.
  *
  * @var integer
  */
-	protected $_size = null;
+  protected $_size = null;
 
 /**
  * Constructs a new File Logger.
@@ -85,10 +85,10 @@ class FileLog extends BaseLog {
  *
  * @param array $options Options for the FileLog, see above.
  */
-	public function __construct($config = array()) {
-		$config = Hash::merge($this->_defaults, $config);
-		parent::__construct($config);
-	}
+  public function __construct($config = array()) {
+    $config = Hash::merge($this->_defaults, $config);
+    parent::__construct($config);
+  }
 
 /**
  * Sets protected properties based on config provided
@@ -96,32 +96,32 @@ class FileLog extends BaseLog {
  * @param array $config Engine configuration
  * @return array
  */
-	public function config($config = array()) {
-		parent::config($config);
+  public function config($config = array()) {
+    parent::config($config);
 
-		if (!empty($config['path'])) {
-			$this->_path = $config['path'];
-		}
-		if (Configure::read('debug') && !is_dir($this->_path)) {
-			mkdir($this->_path, 0775, true);
-		}
+    if (!empty($config['path'])) {
+      $this->_path = $config['path'];
+    }
+    if (Configure::read('debug') && !is_dir($this->_path)) {
+      mkdir($this->_path, 0775, true);
+    }
 
-		if (!empty($config['file'])) {
-			$this->_file = $config['file'];
-			if (substr($this->_file, -4) !== '.log') {
-				$this->_file .= '.log';
-			}
-		}
-		if (!empty($config['size'])) {
-			if (is_numeric($config['size'])) {
-				$this->_size = (int)$config['size'];
-			} else {
-				$this->_size = CakeNumber::fromReadableSize($config['size']);
-			}
-		}
+    if (!empty($config['file'])) {
+      $this->_file = $config['file'];
+      if (substr($this->_file, -4) !== '.log') {
+        $this->_file .= '.log';
+      }
+    }
+    if (!empty($config['size'])) {
+      if (is_numeric($config['size'])) {
+        $this->_size = (int)$config['size'];
+      } else {
+        $this->_size = CakeNumber::fromReadableSize($config['size']);
+      }
+    }
 
-		return $this->_config;
-	}
+    return $this->_config;
+  }
 
 /**
  * Implements writing to log files.
@@ -130,51 +130,51 @@ class FileLog extends BaseLog {
  * @param string $message The message you want to log.
  * @return boolean success of write.
  */
-	public function write($type, $message) {
-		$output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
-		$filename = $this->_getFilename($type);
-		if (!empty($this->_size)) {
-			$this->_rotateFile($filename);
-		}
+  public function write($type, $message) {
+    $output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
+    $filename = $this->_getFilename($type);
+    if (!empty($this->_size)) {
+      $this->_rotateFile($filename);
+    }
 
-		$pathname = $this->_path . $filename;
-		if (empty($this->_config['mask'])) {
-			return file_put_contents($pathname, $output, FILE_APPEND);
-		}
+    $pathname = $this->_path . $filename;
+    if (empty($this->_config['mask'])) {
+      return file_put_contents($pathname, $output, FILE_APPEND);
+    }
 
-		$exists = file_exists($pathname);
-		$result = file_put_contents($pathname, $output, FILE_APPEND);
-		static $selfError = false;
-		if (!$selfError && !$exists && !chmod($pathname, (int)$this->_config['mask'])) {
-			$selfError = true;
-			trigger_error(__d(
-				'cake_dev', 'Could not apply permission mask "%s" on log file "%s"',
-				array($this->_config['mask'], $pathname)), E_USER_WARNING);
-			$selfError = false;
-		}
-		return $result;
-	}
+    $exists = file_exists($pathname);
+    $result = file_put_contents($pathname, $output, FILE_APPEND);
+    static $selfError = false;
+    if (!$selfError && !$exists && !chmod($pathname, (int)$this->_config['mask'])) {
+      $selfError = true;
+      trigger_error(__d(
+        'cake_dev', 'Could not apply permission mask "%s" on log file "%s"',
+        array($this->_config['mask'], $pathname)), E_USER_WARNING);
+      $selfError = false;
+    }
+    return $result;
+  }
 
 /**
  * Get filename
  * @param string $type The type of log.
  * @return string File name
  */
-	protected function _getFilename($type) {
-		$debugTypes = array('notice', 'info', 'debug');
+  protected function _getFilename($type) {
+    $debugTypes = array('notice', 'info', 'debug');
 
-		if (!empty($this->_file)) {
-			$filename = $this->_file;
-		} elseif ($type == 'error' || $type == 'warning') {
-			$filename = 'error.log';
-		} elseif (in_array($type, $debugTypes)) {
-			$filename = 'debug.log';
-		} else {
-			$filename = $type . '.log';
-		}
+    if (!empty($this->_file)) {
+      $filename = $this->_file;
+    } elseif ($type == 'error' || $type == 'warning') {
+      $filename = 'error.log';
+    } elseif (in_array($type, $debugTypes)) {
+      $filename = 'debug.log';
+    } else {
+      $filename = $type . '.log';
+    }
 
-		return $filename;
-	}
+    return $filename;
+  }
 
 /**
  * Rotate log file if size specified in config is reached.
@@ -184,36 +184,36 @@ class FileLog extends BaseLog {
  * @return mixed True if rotated successfully or false in case of error.
  *   Void if file doesn't need to be rotated.
  */
-	protected function _rotateFile($filename) {
-		$filepath = $this->_path . $filename;
-		if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
-			clearstatcache(true, $filepath);
-		} else {
-			clearstatcache();
-		}
+  protected function _rotateFile($filename) {
+    $filepath = $this->_path . $filename;
+    if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+      clearstatcache(true, $filepath);
+    } else {
+      clearstatcache();
+    }
 
-		if (!file_exists($filepath) ||
-			filesize($filepath) < $this->_size
-		) {
-			return;
-		}
+    if (!file_exists($filepath) ||
+      filesize($filepath) < $this->_size
+    ) {
+      return;
+    }
 
-		if ($this->_config['rotate'] === 0) {
-			$result = unlink($filepath);
-		} else {
-			$result = rename($filepath, $filepath . '.' . time());
-		}
+    if ($this->_config['rotate'] === 0) {
+      $result = unlink($filepath);
+    } else {
+      $result = rename($filepath, $filepath . '.' . time());
+    }
 
-		$files = glob($filepath . '.*');
-		if ($files) {
-			$filesToDelete = count($files) - $this->_config['rotate'];
-			while ($filesToDelete > 0) {
-				unlink(array_shift($files));
-				$filesToDelete--;
-			}
-		}
+    $files = glob($filepath . '.*');
+    if ($files) {
+      $filesToDelete = count($files) - $this->_config['rotate'];
+      while ($filesToDelete > 0) {
+        unlink(array_shift($files));
+        $filesToDelete--;
+      }
+    }
 
-		return $result;
-	}
+    return $result;
+  }
 
 }

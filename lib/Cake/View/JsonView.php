@@ -58,31 +58,31 @@ class JsonView extends View {
  *
  * @var string
  */
-	public $subDir = 'json';
+  public $subDir = 'json';
 
 /**
  * Constructor
  *
  * @param Controller $controller
  */
-	public function __construct(Controller $controller = null) {
-		parent::__construct($controller);
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
-			$controller->response->type('json');
-		}
-	}
+  public function __construct(Controller $controller = null) {
+    parent::__construct($controller);
+    if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+      $controller->response->type('json');
+    }
+  }
 
 /**
  * Skip loading helpers if this is a _serialize based view.
  *
  * @return void
  */
-	public function loadHelpers() {
-		if (isset($this->viewVars['_serialize'])) {
-			return;
-		}
-		parent::loadHelpers();
-	}
+  public function loadHelpers() {
+    if (isset($this->viewVars['_serialize'])) {
+      return;
+    }
+    parent::loadHelpers();
+  }
 
 /**
  * Render a JSON view.
@@ -100,27 +100,27 @@ class JsonView extends View {
  * @param string $layout The layout being rendered.
  * @return string The rendered view.
  */
-	public function render($view = null, $layout = null) {
-		$return = null;
-		if (isset($this->viewVars['_serialize'])) {
-			$return = $this->_serialize($this->viewVars['_serialize']);
-		} elseif ($view !== false && $this->_getViewFileName($view)) {
-			$return = parent::render($view, false);
-		}
+  public function render($view = null, $layout = null) {
+    $return = null;
+    if (isset($this->viewVars['_serialize'])) {
+      $return = $this->_serialize($this->viewVars['_serialize']);
+    } elseif ($view !== false && $this->_getViewFileName($view)) {
+      $return = parent::render($view, false);
+    }
 
-		if (!empty($this->viewVars['_jsonp'])) {
-			$jsonpParam = $this->viewVars['_jsonp'];
-			if ($this->viewVars['_jsonp'] === true) {
-				$jsonpParam = 'callback';
-			}
-			if (isset($this->request->query[$jsonpParam])) {
-				$return = sprintf('%s(%s)', h($this->request->query[$jsonpParam]), $return);
-				$this->response->type('js');
-			}
-		}
+    if (!empty($this->viewVars['_jsonp'])) {
+      $jsonpParam = $this->viewVars['_jsonp'];
+      if ($this->viewVars['_jsonp'] === true) {
+        $jsonpParam = 'callback';
+      }
+      if (isset($this->request->query[$jsonpParam])) {
+        $return = sprintf('%s(%s)', h($this->request->query[$jsonpParam]), $return);
+        $this->response->type('js');
+      }
+    }
 
-		return $return;
-	}
+    return $return;
+  }
 
 /**
  * Serialize view vars
@@ -128,27 +128,27 @@ class JsonView extends View {
  * @param array $serialize The viewVars that need to be serialized
  * @return string The serialized data
  */
-	protected function _serialize($serialize) {
-		if (is_array($serialize)) {
-			$data = array();
-			foreach ($serialize as $alias => $key) {
-				if (is_numeric($alias)) {
-					$alias = $key;
-				}
-				if (array_key_exists($key, $this->viewVars)) {
-					$data[$alias] = $this->viewVars[$key];
-				}
-			}
-			$data = !empty($data) ? $data : null;
-		} else {
-			$data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
-		}
+  protected function _serialize($serialize) {
+    if (is_array($serialize)) {
+      $data = array();
+      foreach ($serialize as $alias => $key) {
+        if (is_numeric($alias)) {
+          $alias = $key;
+        }
+        if (array_key_exists($key, $this->viewVars)) {
+          $data[$alias] = $this->viewVars[$key];
+        }
+      }
+      $data = !empty($data) ? $data : null;
+    } else {
+      $data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
+    }
 
-		if (version_compare(PHP_VERSION, '5.4.0', '>=') && Configure::read('debug')) {
-			return json_encode($data, JSON_PRETTY_PRINT);
-		}
+    if (version_compare(PHP_VERSION, '5.4.0', '>=') && Configure::read('debug')) {
+      return json_encode($data, JSON_PRETTY_PRINT);
+    }
 
-		return json_encode($data);
-	}
+    return json_encode($data);
+  }
 
 }

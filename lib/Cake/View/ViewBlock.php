@@ -30,28 +30,28 @@ class ViewBlock {
  *
  * @constant APPEND
  */
-	const APPEND = 'append';
+  const APPEND = 'append';
 
 /**
  * Prepend content
  *
  * @constant PREPEND
  */
-	const PREPEND = 'prepend';
+  const PREPEND = 'prepend';
 
 /**
  * Block content. An array of blocks indexed by name.
  *
  * @var array
  */
-	protected $_blocks = array();
+  protected $_blocks = array();
 
 /**
  * The active blocks being captured.
  *
  * @var array
  */
-	protected $_active = array();
+  protected $_active = array();
 
 /**
  * Should the currently captured content be discarded on ViewBlock::end()
@@ -60,7 +60,7 @@ class ViewBlock {
  * @see ViewBlock::end()
  * @see ViewBlock::startIfEmpty()
  */
-	protected $_discardActiveBufferOnEnd = false;
+  protected $_discardActiveBufferOnEnd = false;
 
 /**
  * Start capturing output for a 'block'
@@ -75,13 +75,13 @@ class ViewBlock {
  * @throws CakeException When starting a block twice
  * @return void
  */
-	public function start($name) {
-		if (in_array($name, $this->_active)) {
-			throw new CakeException(__("A view block with the name '%s' is already/still open.", $name));
-		}
-		$this->_active[] = $name;
-		ob_start();
-	}
+  public function start($name) {
+    if (in_array($name, $this->_active)) {
+      throw new CakeException(__("A view block with the name '%s' is already/still open.", $name));
+    }
+    $this->_active[] = $name;
+    ob_start();
+  }
 
 /**
  * Start capturing output for a 'block' if it is empty
@@ -95,13 +95,13 @@ class ViewBlock {
  * @param string $name The name of the block to capture for.
  * @return void
  */
-	public function startIfEmpty($name) {
-		if (empty($this->_blocks[$name])) {
-			return $this->start($name);
-		}
-		$this->_discardActiveBufferOnEnd = true;
-		ob_start();
-	}
+  public function startIfEmpty($name) {
+    if (empty($this->_blocks[$name])) {
+      return $this->start($name);
+    }
+    $this->_discardActiveBufferOnEnd = true;
+    ob_start();
+  }
 
 /**
  * End a capturing block. The compliment to ViewBlock::start()
@@ -109,22 +109,22 @@ class ViewBlock {
  * @return void
  * @see ViewBlock::start()
  */
-	public function end() {
-		if ($this->_discardActiveBufferOnEnd) {
-			$this->_discardActiveBufferOnEnd = false;
-			ob_end_clean();
-			return;
-		}
-		if (!empty($this->_active)) {
-			$active = end($this->_active);
-			$content = ob_get_clean();
-			if (!isset($this->_blocks[$active])) {
-				$this->_blocks[$active] = '';
-			}
-			$this->_blocks[$active] .= $content;
-			array_pop($this->_active);
-		}
-	}
+  public function end() {
+    if ($this->_discardActiveBufferOnEnd) {
+      $this->_discardActiveBufferOnEnd = false;
+      ob_end_clean();
+      return;
+    }
+    if (!empty($this->_active)) {
+      $active = end($this->_active);
+      $content = ob_get_clean();
+      if (!isset($this->_blocks[$active])) {
+        $this->_blocks[$active] = '';
+      }
+      $this->_blocks[$active] .= $content;
+      array_pop($this->_active);
+    }
+  }
 
 /**
  * Concat content to an existing or new block.
@@ -140,20 +140,20 @@ class ViewBlock {
  *   If ViewBlock::PREPEND it will be prepended.
  * @return void
  */
-	public function concat($name, $value = null, $mode = ViewBlock::APPEND) {
-		if (isset($value)) {
-			if (!isset($this->_blocks[$name])) {
-				$this->_blocks[$name] = '';
-			}
-			if ($mode === ViewBlock::PREPEND) {
-				$this->_blocks[$name] = $value . $this->_blocks[$name];
-			} else {
-				$this->_blocks[$name] .= $value;
-			}
-		} else {
-			$this->start($name);
-		}
-	}
+  public function concat($name, $value = null, $mode = ViewBlock::APPEND) {
+    if (isset($value)) {
+      if (!isset($this->_blocks[$name])) {
+        $this->_blocks[$name] = '';
+      }
+      if ($mode === ViewBlock::PREPEND) {
+        $this->_blocks[$name] = $value . $this->_blocks[$name];
+      } else {
+        $this->_blocks[$name] .= $value;
+      }
+    } else {
+      $this->start($name);
+    }
+  }
 
 /**
  * Append to an existing or new block. Appending to a new
@@ -168,9 +168,9 @@ class ViewBlock {
  * @return void
  * @deprecated As of 2.3 use ViewBlock::concat() instead.
  */
-	public function append($name, $value = null) {
-		$this->concat($name, $value);
-	}
+  public function append($name, $value = null) {
+    $this->concat($name, $value);
+  }
 
 /**
  * Set the content for a block. This will overwrite any
@@ -180,9 +180,9 @@ class ViewBlock {
  * @param mixed $value The content for the block.
  * @return void
  */
-	public function set($name, $value) {
-		$this->_blocks[$name] = (string)$value;
-	}
+  public function set($name, $value) {
+    $this->_blocks[$name] = (string)$value;
+  }
 
 /**
  * Get the content for a block.
@@ -191,38 +191,38 @@ class ViewBlock {
  * @param string $default Default string
  * @return string The block content or $default if the block does not exist.
  */
-	public function get($name, $default = '') {
-		if (!isset($this->_blocks[$name])) {
-			return $default;
-		}
-		return $this->_blocks[$name];
-	}
+  public function get($name, $default = '') {
+    if (!isset($this->_blocks[$name])) {
+      return $default;
+    }
+    return $this->_blocks[$name];
+  }
 
 /**
  * Get the names of all the existing blocks.
  *
  * @return array An array containing the blocks.
  */
-	public function keys() {
-		return array_keys($this->_blocks);
-	}
+  public function keys() {
+    return array_keys($this->_blocks);
+  }
 
 /**
  * Get the name of the currently open block.
  *
  * @return mixed Either null or the name of the last open block.
  */
-	public function active() {
-		return end($this->_active);
-	}
+  public function active() {
+    return end($this->_active);
+  }
 
 /**
  * Get the names of the unclosed/active blocks.
  *
  * @return array An array of unclosed blocks.
  */
-	public function unclosed() {
-		return $this->_active;
-	}
+  public function unclosed() {
+    return $this->_active;
+  }
 
 }

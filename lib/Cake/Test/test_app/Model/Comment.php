@@ -28,6 +28,6 @@ class Comment extends AppModel {
  *
  * @var string
  */
-	public $useTable = 'comments';
+  public $useTable = 'comments';
 
 }

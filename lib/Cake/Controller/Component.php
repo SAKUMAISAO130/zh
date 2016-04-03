@@ -46,28 +46,28 @@ class Component extends Object {
  *
  * @var ComponentCollection
  */
-	protected $_Collection;
+  protected $_Collection;
 
 /**
  * Settings for this Component
  *
  * @var array
  */
-	public $settings = array();
+  public $settings = array();
 
 /**
  * Other Components this component uses.
  *
  * @var array
  */
-	public $components = array();
+  public $components = array();
 
 /**
  * A component lookup table used to lazy load component objects.
  *
  * @var array
  */
-	protected $_componentMap = array();
+  protected $_componentMap = array();
 
 /**
  * Constructor
@@ -75,14 +75,14 @@ class Component extends Object {
  * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
  * @param array $settings Array of configuration settings.
  */
-	public function __construct(ComponentCollection $collection, $settings = array()) {
-		$this->_Collection = $collection;
-		$this->settings = $settings;
-		$this->_set($settings);
-		if (!empty($this->components)) {
-			$this->_componentMap = ComponentCollection::normalizeObjectArray($this->components);
-		}
-	}
+  public function __construct(ComponentCollection $collection, $settings = array()) {
+    $this->_Collection = $collection;
+    $this->settings = $settings;
+    $this->_set($settings);
+    if (!empty($this->components)) {
+      $this->_componentMap = ComponentCollection::normalizeObjectArray($this->components);
+    }
+  }
 
 /**
  * Magic method for lazy loading $components.
@@ -90,15 +90,15 @@ class Component extends Object {
  * @param string $name Name of component to get.
  * @return mixed A Component object or null.
  */
-	public function __get($name) {
-		if (isset($this->_componentMap[$name]) && !isset($this->{$name})) {
-			$settings = array_merge((array)$this->_componentMap[$name]['settings'], array('enabled' => false));
-			$this->{$name} = $this->_Collection->load($this->_componentMap[$name]['class'], $settings);
-		}
-		if (isset($this->{$name})) {
-			return $this->{$name};
-		}
-	}
+  public function __get($name) {
+    if (isset($this->_componentMap[$name]) && !isset($this->{$name})) {
+      $settings = array_merge((array)$this->_componentMap[$name]['settings'], array('enabled' => false));
+      $this->{$name} = $this->_Collection->load($this->_componentMap[$name]['class'], $settings);
+    }
+    if (isset($this->{$name})) {
+      return $this->{$name};
+    }
+  }
 
 /**
  * Called before the Controller::beforeFilter().
@@ -107,8 +107,8 @@ class Component extends Object {
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::initialize
  */
-	public function initialize(Controller $controller) {
-	}
+  public function initialize(Controller $controller) {
+  }
 
 /**
  * Called after the Controller::beforeFilter() and before the controller action
@@ -117,8 +117,8 @@ class Component extends Object {
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::startup
  */
-	public function startup(Controller $controller) {
-	}
+  public function startup(Controller $controller) {
+  }
 
 /**
  * Called before the Controller::beforeRender(), and before
@@ -128,8 +128,8 @@ class Component extends Object {
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::beforeRender
  */
-	public function beforeRender(Controller $controller) {
-	}
+  public function beforeRender(Controller $controller) {
+  }
 
 /**
  * Called after Controller::render() and before the output is printed to the browser.
@@ -138,8 +138,8 @@ class Component extends Object {
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::shutdown
  */
-	public function shutdown(Controller $controller) {
-	}
+  public function shutdown(Controller $controller) {
+  }
 
 /**
  * Called before Controller::redirect(). Allows you to replace the URL that will
@@ -160,7 +160,7 @@ class Component extends Object {
  * @return array|void Either an array or null.
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::beforeRedirect
  */
-	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
-	}
+  public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
+  }
 
 }

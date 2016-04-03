@@ -57,32 +57,32 @@ class XmlView extends View {
  *
  * @var string
  */
-	public $subDir = 'xml';
+  public $subDir = 'xml';
 
 /**
  * Constructor
  *
  * @param Controller $controller
  */
-	public function __construct(Controller $controller = null) {
-		parent::__construct($controller);
+  public function __construct(Controller $controller = null) {
+    parent::__construct($controller);
 
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
-			$controller->response->type('xml');
-		}
-	}
+    if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+      $controller->response->type('xml');
+    }
+  }
 
 /**
  * Skip loading helpers if this is a _serialize based view.
  *
  * @return void
  */
-	public function loadHelpers() {
-		if (isset($this->viewVars['_serialize'])) {
-			return;
-		}
-		parent::loadHelpers();
-	}
+  public function loadHelpers() {
+    if (isset($this->viewVars['_serialize'])) {
+      return;
+    }
+    parent::loadHelpers();
+  }
 
 /**
  * Render a XML view.
@@ -96,14 +96,14 @@ class XmlView extends View {
  * @param string $layout The layout being rendered.
  * @return string The rendered view.
  */
-	public function render($view = null, $layout = null) {
-		if (isset($this->viewVars['_serialize'])) {
-			return $this->_serialize($this->viewVars['_serialize']);
-		}
-		if ($view !== false && $this->_getViewFileName($view)) {
-			return parent::render($view, false);
-		}
-	}
+  public function render($view = null, $layout = null) {
+    if (isset($this->viewVars['_serialize'])) {
+      return $this->_serialize($this->viewVars['_serialize']);
+    }
+    if ($view !== false && $this->_getViewFileName($view)) {
+      return parent::render($view, false);
+    }
+  }
 
 /**
  * Serialize view vars.
@@ -111,30 +111,30 @@ class XmlView extends View {
  * @param array $serialize The viewVars that need to be serialized.
  * @return string The serialized data
  */
-	protected function _serialize($serialize) {
-		$rootNode = isset($this->viewVars['_rootNode']) ? $this->viewVars['_rootNode'] : 'response';
+  protected function _serialize($serialize) {
+    $rootNode = isset($this->viewVars['_rootNode']) ? $this->viewVars['_rootNode'] : 'response';
 
-		if (is_array($serialize)) {
-			$data = array($rootNode => array());
-			foreach ($serialize as $alias => $key) {
-				if (is_numeric($alias)) {
-					$alias = $key;
-				}
-				$data[$rootNode][$alias] = $this->viewVars[$key];
-			}
-		} else {
-			$data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
-			if (is_array($data) && Set::numeric(array_keys($data))) {
-				$data = array($rootNode => array($serialize => $data));
-			}
-		}
+    if (is_array($serialize)) {
+      $data = array($rootNode => array());
+      foreach ($serialize as $alias => $key) {
+        if (is_numeric($alias)) {
+          $alias = $key;
+        }
+        $data[$rootNode][$alias] = $this->viewVars[$key];
+      }
+    } else {
+      $data = isset($this->viewVars[$serialize]) ? $this->viewVars[$serialize] : null;
+      if (is_array($data) && Set::numeric(array_keys($data))) {
+        $data = array($rootNode => array($serialize => $data));
+      }
+    }
 
-		$options = array();
-		if (Configure::read('debug')) {
-			$options['pretty'] = true;
-		}
+    $options = array();
+    if (Configure::read('debug')) {
+      $options['pretty'] = true;
+    }
 
-		return Xml::fromArray($data, $options)->asXML();
-	}
+    return Xml::fromArray($data, $options)->asXML();
+  }
 
 }

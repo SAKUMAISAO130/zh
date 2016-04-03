@@ -29,7 +29,7 @@ class CacheDispatcher extends DispatcherFilter {
  *
  * @var integer
  */
-	public $priority = 9;
+  public $priority = 9;
 
 /**
  * Checks whether the response was cached and set the body accordingly.
@@ -37,37 +37,37 @@ class CacheDispatcher extends DispatcherFilter {
  * @param CakeEvent $event containing the request and response object
  * @return CakeResponse with cached content if found, null otherwise
  */
-	public function beforeDispatch(CakeEvent $event) {
-		if (Configure::read('Cache.check') !== true) {
-			return;
-		}
+  public function beforeDispatch(CakeEvent $event) {
+    if (Configure::read('Cache.check') !== true) {
+      return;
+    }
 
-		$path = $event->data['request']->here();
-		if ($path === '/') {
-			$path = 'home';
-		}
-		$prefix = Configure::read('Cache.viewPrefix');
-		if ($prefix) {
-			$path = $prefix . '_' . $path;
-		}
-		$path = strtolower(Inflector::slug($path));
+    $path = $event->data['request']->here();
+    if ($path === '/') {
+      $path = 'home';
+    }
+    $prefix = Configure::read('Cache.viewPrefix');
+    if ($prefix) {
+      $path = $prefix . '_' . $path;
+    }
+    $path = strtolower(Inflector::slug($path));
 
-		$filename = CACHE . 'views' . DS . $path . '.php';
+    $filename = CACHE . 'views' . DS . $path . '.php';
 
-		if (!file_exists($filename)) {
-			$filename = CACHE . 'views' . DS . $path . '_index.php';
-		}
-		if (file_exists($filename)) {
-			$controller = null;
-			$view = new View($controller);
-			$view->response = $event->data['response'];
-			$result = $view->renderCache($filename, microtime(true));
-			if ($result !== false) {
-				$event->stopPropagation();
-				$event->data['response']->body($result);
-				return $event->data['response'];
-			}
-		}
-	}
+    if (!file_exists($filename)) {
+      $filename = CACHE . 'views' . DS . $path . '_index.php';
+    }
+    if (file_exists($filename)) {
+      $controller = null;
+      $view = new View($controller);
+      $view->response = $event->data['response'];
+      $result = $view->renderCache($filename, microtime(true));
+      if ($result !== false) {
+        $event->stopPropagation();
+        $event->data['response']->body($result);
+        return $event->data['response'];
+      }
+    }
+  }
 
 }

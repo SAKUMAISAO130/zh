@@ -28,20 +28,20 @@ class ArosAcoFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $fields = array(
-		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'aro_id' => array('type' => 'integer', 'length' => 10, 'null' => false),
-		'aco_id' => array('type' => 'integer', 'length' => 10, 'null' => false),
-		'_create' => array('type' => 'string', 'length' => 2, 'default' => 0),
-		'_read' => array('type' => 'string', 'length' => 2, 'default' => 0),
-		'_update' => array('type' => 'string', 'length' => 2, 'default' => 0),
-		'_delete' => array('type' => 'string', 'length' => 2, 'default' => 0)
-	);
+  public $fields = array(
+    'id' => array('type' => 'integer', 'key' => 'primary'),
+    'aro_id' => array('type' => 'integer', 'length' => 10, 'null' => false),
+    'aco_id' => array('type' => 'integer', 'length' => 10, 'null' => false),
+    '_create' => array('type' => 'string', 'length' => 2, 'default' => 0),
+    '_read' => array('type' => 'string', 'length' => 2, 'default' => 0),
+    '_update' => array('type' => 'string', 'length' => 2, 'default' => 0),
+    '_delete' => array('type' => 'string', 'length' => 2, 'default' => 0)
+  );
 
 /**
  * records property
  *
  * @var array
  */
-	public $records = array();
+  public $records = array();
 }

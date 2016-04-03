@@ -31,48 +31,48 @@ class LoggerEngineLog extends FileLog {
  */
 class LogEngineCollectionTest extends CakeTestCase {
 
-	public $Collection;
+  public $Collection;
 
 /**
  * Start test callback
  *
  * @return void
  */
-	public function setUp() {
-		parent::setUp();
+  public function setUp() {
+    parent::setUp();
 
-		$this->Collection = new LogEngineCollection();
-	}
+    $this->Collection = new LogEngineCollection();
+  }
 
 /**
  * test load
  *
  * @return void
  */
-	public function testLoad() {
-		$result = $this->Collection->load('key', array('engine' => 'File'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+  public function testLoad() {
+    $result = $this->Collection->load('key', array('engine' => 'File'));
+    $this->assertInstanceOf('CakeLogInterface', $result);
+  }
 
 /**
  * test load with deprecated Log suffix
  *
  * @return void
  */
-	public function testLoadWithSuffix() {
-		$result = $this->Collection->load('key', array('engine' => 'FileLog'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+  public function testLoadWithSuffix() {
+    $result = $this->Collection->load('key', array('engine' => 'FileLog'));
+    $this->assertInstanceOf('CakeLogInterface', $result);
+  }
 
 /**
  * test that engines starting with Log also work properly
  *
  * @return void
  */
-	public function testLoadWithSuffixAtBeginning() {
-		$result = $this->Collection->load('key', array('engine' => 'LoggerEngine'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+  public function testLoadWithSuffixAtBeginning() {
+    $result = $this->Collection->load('key', array('engine' => 'LoggerEngine'));
+    $this->assertInstanceOf('CakeLogInterface', $result);
+  }
 
 /**
  * test load with invalid Log
@@ -80,9 +80,9 @@ class LogEngineCollectionTest extends CakeTestCase {
  * @return void
  * @expectedException CakeLogException
  */
-	public function testLoadInvalid() {
-		$result = $this->Collection->load('key', array('engine' => 'ImaginaryFile'));
-		$this->assertInstanceOf('CakeLogInterface', $result);
-	}
+  public function testLoadInvalid() {
+    $result = $this->Collection->load('key', array('engine' => 'ImaginaryFile'));
+    $this->assertInstanceOf('CakeLogInterface', $result);
+  }
 
 }

@@ -34,8 +34,8 @@ class Object {
  * Constructor, no-op
  *
  */
-	public function __construct() {
-	}
+  public function __construct() {
+  }
 
 /**
  * Object-to-string conversion.
@@ -43,10 +43,10 @@ class Object {
  *
  * @return string The name of this class
  */
-	public function toString() {
-		$class = get_class($this);
-		return $class;
-	}
+  public function toString() {
+    $class = get_class($this);
+    return $class;
+  }
 
 /**
  * Calls a controller's method from any location. Can be used to connect controllers together
@@ -68,45 +68,45 @@ class Object {
  * @return mixed Boolean true or false on success/failure, or contents
  *    of rendered action if 'return' is set in $extra.
  */
-	public function requestAction($url, $extra = array()) {
-		if (empty($url)) {
-			return false;
-		}
-		if (($index = array_search('return', $extra)) !== false) {
-			$extra['return'] = 0;
-			$extra['autoRender'] = 1;
-			unset($extra[$index]);
-		}
-		$arrayUrl = is_array($url);
-		if ($arrayUrl && !isset($extra['url'])) {
-			$extra['url'] = array();
-		}
-		if ($arrayUrl && !isset($extra['data'])) {
-			$extra['data'] = array();
-		}
-		$extra = array_merge(array('autoRender' => 0, 'return' => 1, 'bare' => 1, 'requested' => 1), $extra);
-		$data = isset($extra['data']) ? $extra['data'] : null;
-		unset($extra['data']);
+  public function requestAction($url, $extra = array()) {
+    if (empty($url)) {
+      return false;
+    }
+    if (($index = array_search('return', $extra)) !== false) {
+      $extra['return'] = 0;
+      $extra['autoRender'] = 1;
+      unset($extra[$index]);
+    }
+    $arrayUrl = is_array($url);
+    if ($arrayUrl && !isset($extra['url'])) {
+      $extra['url'] = array();
+    }
+    if ($arrayUrl && !isset($extra['data'])) {
+      $extra['data'] = array();
+    }
+    $extra = array_merge(array('autoRender' => 0, 'return' => 1, 'bare' => 1, 'requested' => 1), $extra);
+    $data = isset($extra['data']) ? $extra['data'] : null;
+    unset($extra['data']);
 
-		if (is_string($url) && strpos($url, Router::fullBaseUrl()) === 0) {
-			$url = Router::normalize(str_replace(Router::fullBaseUrl(), '', $url));
-		}
-		if (is_string($url)) {
-			$request = new CakeRequest($url);
-		} elseif (is_array($url)) {
-			$params = $url + array('pass' => array(), 'named' => array(), 'base' => false);
-			$params = array_merge($params, $extra);
-			$request = new CakeRequest(Router::reverse($params));
-		}
-		if (isset($data)) {
-			$request->data = $data;
-		}
+    if (is_string($url) && strpos($url, Router::fullBaseUrl()) === 0) {
+      $url = Router::normalize(str_replace(Router::fullBaseUrl(), '', $url));
+    }
+    if (is_string($url)) {
+      $request = new CakeRequest($url);
+    } elseif (is_array($url)) {
+      $params = $url + array('pass' => array(), 'named' => array(), 'base' => false);
+      $params = array_merge($params, $extra);
+      $request = new CakeRequest(Router::reverse($params));
+    }
+    if (isset($data)) {
+      $request->data = $data;
+    }
 
-		$dispatcher = new Dispatcher();
-		$result = $dispatcher->dispatch($request, new CakeResponse(), $extra);
-		Router::popRequest();
-		return $result;
-	}
+    $dispatcher = new Dispatcher();
+    $result = $dispatcher->dispatch($request, new CakeResponse(), $extra);
+    Router::popRequest();
+    return $result;
+  }
 
 /**
  * Calls a method on this object with the given parameters. Provides an OO wrapper
@@ -116,24 +116,24 @@ class Object {
  * @param array $params Parameter list to use when calling $method
  * @return mixed Returns the result of the method call
  */
-	public function dispatchMethod($method, $params = array()) {
-		switch (count($params)) {
-			case 0:
-				return $this->{$method}();
-			case 1:
-				return $this->{$method}($params[0]);
-			case 2:
-				return $this->{$method}($params[0], $params[1]);
-			case 3:
-				return $this->{$method}($params[0], $params[1], $params[2]);
-			case 4:
-				return $this->{$method}($params[0], $params[1], $params[2], $params[3]);
-			case 5:
-				return $this->{$method}($params[0], $params[1], $params[2], $params[3], $params[4]);
-			default:
-				return call_user_func_array(array(&$this, $method), $params);
-		}
-	}
+  public function dispatchMethod($method, $params = array()) {
+    switch (count($params)) {
+      case 0:
+        return $this->{$method}();
+      case 1:
+        return $this->{$method}($params[0]);
+      case 2:
+        return $this->{$method}($params[0], $params[1]);
+      case 3:
+        return $this->{$method}($params[0], $params[1], $params[2]);
+      case 4:
+        return $this->{$method}($params[0], $params[1], $params[2], $params[3]);
+      case 5:
+        return $this->{$method}($params[0], $params[1], $params[2], $params[3], $params[4]);
+      default:
+        return call_user_func_array(array(&$this, $method), $params);
+    }
+  }
 
 /**
  * Stop execution of the current script. Wraps exit() making
@@ -142,9 +142,9 @@ class Object {
  * @param integer|string $status see http://php.net/exit for values
  * @return void
  */
-	protected function _stop($status = 0) {
-		exit($status);
-	}
+  protected function _stop($status = 0) {
+    exit($status);
+  }
 
 /**
  * Convenience method to write a message to CakeLog. See CakeLog::write()
@@ -154,13 +154,13 @@ class Object {
  * @param integer $type Error type constant. Defined in app/Config/core.php.
  * @return boolean Success of log write
  */
-	public function log($msg, $type = LOG_ERR, $scope = null) {
-		if (!is_string($msg)) {
-			$msg = print_r($msg, true);
-		}
+  public function log($msg, $type = LOG_ERR, $scope = null) {
+    if (!is_string($msg)) {
+      $msg = print_r($msg, true);
+    }
 
-		return CakeLog::write($type, $msg, $scope);
-	}
+    return CakeLog::write($type, $msg, $scope);
+  }
 
 /**
  * Allows setting of multiple properties of the object in a single line of code. Will only set
@@ -169,16 +169,16 @@ class Object {
  * @param array $properties An associative array containing properties and corresponding values.
  * @return void
  */
-	protected function _set($properties = array()) {
-		if (is_array($properties) && !empty($properties)) {
-			$vars = get_object_vars($this);
-			foreach ($properties as $key => $val) {
-				if (array_key_exists($key, $vars)) {
-					$this->{$key} = $val;
-				}
-			}
-		}
-	}
+  protected function _set($properties = array()) {
+    if (is_array($properties) && !empty($properties)) {
+      $vars = get_object_vars($this);
+      foreach ($properties as $key => $val) {
+        if (array_key_exists($key, $vars)) {
+          $this->{$key} = $val;
+        }
+      }
+    }
+  }
 
 /**
  * Merges this objects $property with the property in $class' definition.
@@ -192,22 +192,22 @@ class Object {
  * @param boolean $normalize Set to true to run the properties through Hash::normalize() before merging.
  * @return void
  */
-	protected function _mergeVars($properties, $class, $normalize = true) {
-		$classProperties = get_class_vars($class);
-		foreach ($properties as $var) {
-			if (
-				isset($classProperties[$var]) &&
-				!empty($classProperties[$var]) &&
-				is_array($this->{$var}) &&
-				$this->{$var} != $classProperties[$var]
-			) {
-				if ($normalize) {
-					$classProperties[$var] = Hash::normalize($classProperties[$var]);
-					$this->{$var} = Hash::normalize($this->{$var});
-				}
-				$this->{$var} = Hash::merge($classProperties[$var], $this->{$var});
-			}
-		}
-	}
+  protected function _mergeVars($properties, $class, $normalize = true) {
+    $classProperties = get_class_vars($class);
+    foreach ($properties as $var) {
+      if (
+        isset($classProperties[$var]) &&
+        !empty($classProperties[$var]) &&
+        is_array($this->{$var}) &&
+        $this->{$var} != $classProperties[$var]
+      ) {
+        if ($normalize) {
+          $classProperties[$var] = Hash::normalize($classProperties[$var]);
+          $this->{$var} = Hash::normalize($this->{$var});
+        }
+        $this->{$var} = Hash::merge($classProperties[$var], $this->{$var});
+      }
+    }
+  }
 
 }
